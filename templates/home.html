@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Jazz Auto Electric | Auto-Electrical Repairs & Motor Spares Harare{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 30%, rgba(15, 23, 42, 0.6) 100%), url('{% static 'images/hero_bg.png' %}');">
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="hero-tag"><i class="fas fa-microchip"></i> ADVANCED AUTOMOTIVE ENGINEERING</div>
+            <h1 class="hero-title">Precision Auto-Electrical Repairs & Quality Spares</h1>
+            <p class="hero-subtitle">
+                Harare's trusted specialists in high-end vehicle diagnostic testing, custom wiring, alternator & starter rebuilds, and direct retail of premium motor spares.
+            </p>
+            <div class="hero-ctas">
+                <a href="{% url 'bookings:services' %}#booking-section" class="btn-primary"><i class="fas fa-calendar-check"></i> Book a Repair</a>
+                <a href="{% url 'inventory:shop' %}" class="btn-secondary"><i class="fas fa-shopping-cart"></i> Shop Motor Spares</a>
+            </div>
+        </div>
+        
+        <!-- Live Status Board / Quick Booking Hook -->
+        <div class="hero-status-board">
+            <div class="board-header">
+                <span class="live-pulse"></span>
+                <h3>WORKSHOP STATUS</h3>
+            </div>
+            <div class="board-body">
+                <div class="status-item">
+                    <span class="status-label">Diagnostics Queue:</span>
+                    <span class="status-value val-green">Active (Normal Wait)</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Today's Operating Hours:</span>
+                    <span class="status-value">8:00 AM - 5:00 PM</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">Location:</span>
+                    <span class="status-value">Graniteside, Harare</span>
+                </div>
+                <div class="status-search-box">
+                    <form action="{% url 'inventory:shop' %}" method="GET" class="hero-quick-search">
+                        <input type="text" name="q" placeholder="Search spares (e.g. O2 sensor, battery)..." required>
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Stats / Core Values Bar -->
+<section class="quick-info-bar">
+    <div class="info-container">
+        <div class="info-card">
+            <div class="info-icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="info-details">
+                <h4>Graniteside Location</h4>
+                <p>Cripps Road, Harare, Zimbabwe</p>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon-wrapper"><i class="fas fa-phone-alt"></i></div>
+            <div class="info-details">
+                <h4>Call / WhatsApp Us</h4>
+                <p>{{ BUSINESS_PHONE }}</p>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-icon-wrapper"><i class="fas fa-clock"></i></div>
+            <div class="info-details">
+                <h4>Working Hours</h4>
+                <p>Mon - Sat: 8 AM - 5 PM (Sat 1 PM)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Services Section -->
+<section class="services-preview-section">
+    <div class="section-header-center">
+        <span class="section-subtitle">WHAT WE DO BEST</span>
+        <h2 class="section-title">Specialized Auto-Electrical Services</h2>
+        <div class="title-divider"></div>
+        <p class="section-description">
+            Equipped with dealer-level diagnostic scanners and high-precision testing equipment, we resolve complex electrical faults that others fail to diagnose.
+        </p>
+    </div>
+    
+    <div class="services-preview-grid">
+        {% for service in services %}
+        <div class="service-preview-card">
+            <div class="card-glow-bg"></div>
+            <div class="service-card-icon"><i class="{{ service.icon_class }}"></i></div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+            <a href="{% url 'bookings:services' %}?service={{ service.slug }}" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        {% empty %}
+        <!-- Fallback if database is not seeded yet -->
+        <div class="service-preview-card">
+            <div class="card-glow-bg"></div>
+            <div class="service-card-icon"><i class="fas fa-laptop-code"></i></div>
+            <h3>Computer Diagnostics</h3>
+            <p>Fault code reading, live data stream analysis, sensor calibrations, and ECU reprogramming using state-of-the-art scanners.</p>
+            <a href="{% url 'bookings:services' %}?service=diagnostics" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-preview-card">
+            <div class="card-glow-bg"></div>
+            <div class="service-card-icon"><i class="fas fa-car-battery"></i></div>
+            <h3>Battery & Power Management</h3>
+            <p>Alternator performance testing, parasitic load testing, battery health diagnostics, replacement, and registration.</p>
+            <a href="{% url 'bookings:services' %}?service=battery_replacement" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-preview-card">
+            <div class="card-glow-bg"></div>
+            <div class="service-card-icon"><i class="fas fa-cogs"></i></div>
+            <h3>Alternator & Starter Rebuilds</h3>
+            <p>Complete rebuilding and servicing of heavy-duty starters, solenoids, alternators, brushes, regulators, and gears.</p>
+            <a href="{% url 'bookings:services' %}?service=alternator_starter" class="card-link">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="center-cta-btn">
+        <a href="{% url 'bookings:services' %}" class="btn-primary">View All Services</a>
+    </div>
+</section>
+
+<!-- Spares Shop Teaser -->
+<section class="spares-teaser-section">
+    <div class="teaser-container">
+        <div class="teaser-text-content">
+            <span class="section-subtitle">RETAIL MOTOR SPARES</span>
+            <h2 class="section-title">Need Parts Fast? Browse Our Inventory</h2>
+            <p>
+                We stock premium, certified auto-electrical parts to ensure your car stays on the road. From hard-to-find engine sensors and high-output alternators to relays, fuses, and custom wiring cables.
+            </p>
+            <ul class="teaser-benefits">
+                <li><i class="fas fa-check-circle"></i> 100% Genuine, Manufacturer-Tested Parts</li>
+                <li><i class="fas fa-check-circle"></i> Ready Over-The-Counter Stock in Harare</li>
+                <li><i class="fas fa-check-circle"></i> Experienced Auto-Electrics Advice</li>
+            </ul>
+            <a href="{% url 'inventory:shop' %}" class="btn-primary">Browse Parts Shop</a>
+        </div>
+        
+        <div class="teaser-grid-content">
+            <div class="teaser-card-preview">
+                <i class="fas fa-lightbulb icon-blue"></i>
+                <h4>Lighting Systems</h4>
+                <p>LED Headlight conversions, bulbs, and custom relays.</p>
+            </div>
+            <div class="teaser-card-preview">
+                <i class="fas fa-microchip icon-blue"></i>
+                <h4>Engine Sensors</h4>
+                <p>High-precision Oxygen (O2) and MAF sensors.</p>
+            </div>
+            <div class="teaser-card-preview">
+                <i class="fas fa-plug icon-blue"></i>
+                <h4>Wiring Kits</h4>
+                <p>Professional grade cables, fuse boxes, and terminals.</p>
+            </div>
+            <div class="teaser-card-preview">
+                <i class="fas fa-car-battery icon-blue"></i>
+                <h4>Batteries</h4>
+                <p>AGM and Maintenance-free batteries with warranty.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="section-header-center">
+        <span class="section-subtitle">TESTIMONIALS</span>
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="title-divider"></div>
+    </div>
+    
+    <div class="testimonials-grid">
+        {% for testimonial in testimonials %}
+        <div class="testimonial-card">
+            <div class="stars">
+                {% for i in testimonial.get_stars_range %}
+                <i class="fas fa-star"></i>
+                {% endfor %}
+            </div>
+            <p>"{{ testimonial.text }}"</p>
+            <div class="customer-info">
+                <strong>{{ testimonial.name }}</strong>
+                <span>{{ testimonial.role }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Fallback if database is not seeded yet -->
+        <div class="testimonial-card">
+            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p>"My Toyota Hilux had a complex battery draining issue that two workshops couldn't fix. The guys at Jazz Auto Electric diagnosed it as a faulty alternator regulator within an hour. Professional and very fast!"</p>
+            <div class="customer-info">
+                <strong>Tinashe M.</strong>
+                <span>Harare Driver</span>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p>"Awesome shop! Finding quality LED wiring harnesses and relay kits in Harare is usually a headache. Jazz had exactly what I needed in stock at a reasonable price in USD. Highly recommended."</p>
+            <div class="customer-info">
+                <strong>Sarah G.</strong>
+                <span>SUV Owner</span>
+            </div>
+        </div>
+        <div class="testimonial-card">
+            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p>"I had my starter motor rebuilt here. They gave me a 6-month warranty and the car fires up instantly now. Excellent service, clean workshop, and very transparent pricing."</p>
+            <div class="customer-info">
+                <strong>Farai Z.</strong>
+                <span>Fleet Manager</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

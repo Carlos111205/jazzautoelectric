@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us & Location | Jazz Auto Electric{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header-section">
+    <div class="header-container">
+        <h1>Contact & Location</h1>
+        <p>Get in touch with our auto-electrical engineers or visit our shop in Graniteside, Harare.</p>
+    </div>
+</section>
+
+<!-- Contact Main Layout -->
+<section class="contact-details-section">
+    <div class="contact-grid-container">
+        
+        <!-- Column 1: Info Cards -->
+        <div class="contact-info-cards">
+            <span class="section-subtitle">FIND US</span>
+            <h2>Get In Touch</h2>
+            <p>Have questions about a service booking, diagnostic troubleshooting, or spare parts availability? Reach out directly via phone, email, or by visiting our workshop.</p>
+            
+            <div class="contact-cards-stack">
+                <!-- Card 1 -->
+                <div class="c-detail-card">
+                    <div class="c-icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="c-text-wrapper">
+                        <h4>Workshop Address</h4>
+                        <p>{{ BUSINESS_ADDRESS }}</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="c-detail-card">
+                    <div class="c-icon-wrapper"><i class="fas fa-phone-alt"></i></div>
+                    <div class="c-text-wrapper">
+                        <h4>Phone / WhatsApp</h4>
+                        <p><a href="tel:{{ BUSINESS_PHONE_RAW }}">{{ BUSINESS_PHONE }}</a></p>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="c-detail-card">
+                    <div class="c-icon-wrapper"><i class="fas fa-envelope"></i></div>
+                    <div class="c-text-wrapper">
+                        <h4>Email Address</h4>
+                        <p><a href="mailto:{{ BUSINESS_EMAIL }}">{{ BUSINESS_EMAIL }}</a></p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="c-detail-card">
+                    <div class="c-icon-wrapper"><i class="fas fa-clock"></i></div>
+                    <div class="c-text-wrapper">
+                        <h4>Operating Hours</h4>
+                        <p>{{ BUSINESS_HOURS_WEEKDAYS }}<br>{{ BUSINESS_HOURS_SATURDAY }}<br>{{ BUSINESS_HOURS_SUNDAY }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Column 2: Inquiry Form -->
+        <div class="contact-form-card">
+            <h3>Send Us a Message</h3>
+            <form method="POST" action="{% url 'bookings:contact' %}" class="auto-form">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="{{ form.name.id_for_label }}">Your Name</label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="{{ form.email.id_for_label }}">Email Address</label>
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.phone.id_for_label }}">Phone Number (Optional)</label>
+                    {{ form.phone }}
+                    {{ form.phone.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.subject.id_for_label }}">Subject</label>
+                    {{ form.subject }}
+                    {{ form.subject.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.message.id_for_label }}">Your Message</label>
+                    {{ form.message }}
+                    {{ form.message.errors }}
+                </div>
+
+                <button type="submit" class="btn-primary btn-block">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Full-Width Interactive Dark Leaflet Map -->
+<section class="map-section">
+    <div class="map-header">
+        <span class="section-subtitle">INTERACTIVE MAP</span>
+        <h2>Find Us in Graniteside, Harare</h2>
+        <div class="title-divider"></div>
+    </div>
+    
+    <!-- Map Container Canvas -->
+    <div id="contact-map" class="interactive-map-canvas"></div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

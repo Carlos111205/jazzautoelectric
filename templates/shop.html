@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Motor Spares Catalog | Jazz Auto Electric{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header-section">
+    <div class="header-container">
+        <h1>Motor Spares Catalog</h1>
+        <p>Premium auto-electrical spare parts, components, and wiring accessories ready for dispatch.</p>
+    </div>
+</section>
+
+<!-- Shop Catalog Main Section -->
+<section class="shop-catalog-section">
+    <div class="shop-container">
+        <!-- Search & Filter Controls -->
+        <div class="shop-controls">
+            <!-- Text Search Bar -->
+            <form method="GET" action="{% url 'inventory:shop' %}" class="shop-search-form">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" name="q" id="parts-search-input" placeholder="Search by part name, SKU, or specs..." value="{{ query|default:'' }}">
+                    {% if query %}
+                        <a href="{% url 'inventory:shop' %}" class="search-clear"><i class="fas fa-times"></i></a>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn-primary">Search</button>
+            </form>
+
+            <!-- Category Filter Tabs -->
+            <div class="category-filters">
+                <a href="{% url 'inventory:shop' %}" class="filter-tab {% if not active_category %}active{% endif %}">
+                    <i class="fas fa-th"></i> All Spares
+                </a>
+                {% for category in categories %}
+                    <a href="{% url 'inventory:shop' %}?category={{ category.slug }}{% if query %}&q={{ query }}{% endif %}" 
+                       class="filter-tab {% if active_category.slug == category.slug %}active{% endif %}">
+                        <i class="{{ category.icon_class }}"></i> {{ category.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Active Filters Display -->
+        {% if active_category or query %}
+            <div class="active-filters-info">
+                <span>Showing results for: </span>
+                {% if active_category %}
+                    <span class="filter-pill">Category: {{ active_category.name }} <a href="{% url 'inventory:shop' %}{% if query %}?q={{ query }}{% endif %}">&times;</a></span>
+                {% endif %}
+                {% if query %}
+                    <span class="filter-pill">Search: "{{ query }}" <a href="{% url 'inventory:shop' %}{% if active_category %}?category={{ active_category.slug }}{% endif %}">&times;</a></span>
+                {% endif %}
+                <span class="results-count">({{ parts|length }} parts found)</span>
+            </div>
+        {% endif %}
+
+        <!-- Spares Grid -->
+        <div class="parts-grid" id="parts-display-grid">
+            {% for part in parts %}
+                <div class="part-card" data-name="{{ part.name|lower }}" data-sku="{{ part.sku|lower }}" data-desc="{{ part.description|lower }}">
+                    <div class="part-header">
+                        <span class="part-category-tag"><i class="{{ part.category.icon_class }}"></i> {{ part.category.name }}</span>
+                        {% if part.is_available %}
+                            <span class="stock-status in-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+                        {% else %}
+                            <span class="stock-status out-of-stock"><i class="fas fa-times-circle"></i> Out of Stock</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="part-image-placeholder">
+                        <i class="{{ part.category.icon_class }}"></i>
+                        <span>{{ part.sku|default:"SPARE PART" }}</span>
+                    </div>
+
+                    <div class="part-details">
+                        <h3 class="part-title">{{ part.name }}</h3>
+                        <div class="part-sku-price">
+                            <span class="part-sku">SKU: {{ part.sku|default:"N/A" }}</span>
+                            <span class="part-price">${{ part.price }} <span class="usd-text">USD</span></span>
+                        </div>
+                        <p class="part-desc">{{ part.description }}</p>
+                        
+                        <!-- Specifications Dropdown Accordion -->
+                        {% if part.specifications %}
+                            <div class="part-specs-accordion">
+                                <button class="specs-toggle-btn">
+                                    <span>Technical Specs</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="specs-content" style="display: none;">
+                                    <table class="specs-table">
+                                        <tbody>
+                                            {% for spec in part.get_specifications_list %}
+                                                <tr>
+                                                    <th>{{ spec.key }}</th>
+                                                    <td>{{ spec.value }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="part-actions">
+                        <!-- Custom pre-filled WhatsApp link for this specific part -->
+                        <a href="https://wa.me/263772456789?text=Hi%20Jazz%20Auto%20Electric,%20I'm%20interested%20in%20purchasing%20the%20{{ part.name|urlencode }}%20(SKU:%20{{ part.sku|urlencode }}).%20Is%20it%20available?" 
+                           target="_blank" 
+                           class="btn-primary btn-block whatsapp-order-btn">
+                            <i class="fab fa-whatsapp"></i> Order / Inquire
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="empty-shop-state">
+                    <i class="fas fa-search-minus"></i>
+                    <h3>No spare parts found</h3>
+                    <p>We couldn't find any motor spares matching your criteria. Try adjusting your filters or search query, or contact us directly.</p>
+                    <a href="{% url 'inventory:shop' %}" class="btn-primary">Clear Filters</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Submission Successful | Jazz Auto Electric{% endblock %}
+
+{% block content %}
+<section class="success-page-section">
+    <div class="success-card">
+        <div class="success-icon-wrapper">
+            <span class="electric-ring"></span>
+            <i class="fas fa-check-double"></i>
+        </div>
+        
+        {% if type == 'booking' %}
+            <h1>Booking Request Received!</h1>
+            <p class="success-intro">Thank you, <strong>{{ booking.name }}</strong>. Your service booking request has been successfully recorded in our system.</p>
+            
+            <div class="summary-details">
+                <h3>Appointment Summary:</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Vehicle:</span>
+                        <span class="value">{{ booking.vehicle_year }} {{ booking.vehicle_make }} {{ booking.vehicle_model }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Service Category:</span>
+                        <span class="value">{{ booking.get_service_type_display }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Preferred Date:</span>
+                        <span class="value">{{ booking.preferred_date|date:"F d, Y" }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Time Window:</span>
+                        <span class="value">{{ booking.get_preferred_time_display }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="next-steps-info">
+                <i class="fas fa-info-circle"></i> Our head auto-electrical engineer will review your booking against today's queue and call you shortly at <strong>{{ booking.phone }}</strong> to confirm your slot.
+            </p>
+        {% else %}
+            <h1>Message Sent Successfully!</h1>
+            <p class="success-intro">Thank you for reaching out, <strong>{{ inquiry.name }}</strong>. Your inquiry regarding <em>"{{ inquiry.subject }}"</em> has been sent to our support desk.</p>
+            
+            <p class="next-steps-info">
+                <i class="fas fa-info-circle"></i> A representative from Jazz Auto Electric will respond to you via email (<strong>{{ inquiry.email }}</strong>) or phone (<strong>{{ inquiry.phone }}</strong>) shortly.
+            </p>
+        {% endif %}
+        
+        <div class="success-actions">
+            <a href="{% url 'bookings:home' %}" class="btn-primary">Return to Home</a>
+            <a href="{% url 'inventory:shop' %}" class="btn-secondary">Browse Spares Catalog</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

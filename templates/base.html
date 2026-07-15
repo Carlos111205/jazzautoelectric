@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jazz Auto Electric | Auto-Electrical Experts & Spares{% endblock %}</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="{% block meta_description %}Jazz Auto Electric in Harare, Zimbabwe specializes in professional auto-electrical repairs, diagnostics, alternator/starter repairs, battery replacement, and premium motor spares retail.{% endblock %}">
+    <meta name="keywords" content="auto electric, car diagnostics, alternator repair, starter repair, motor spares harare, car battery zimbabwe, jazz auto electric">
+    <meta name="author" content="Jazz Auto Electric">
+    
+    <!-- Google Fonts: Inter & Orbitron (for technical accents) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <!-- Custom CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    
+    <!-- Header/Navigation -->
+    <header class="navbar-header" id="navbar">
+        <div class="nav-container">
+            <a href="{% url 'bookings:home' %}" class="logo">
+                <i class="fas fa-bolt logo-icon"></i>
+                <span class="logo-text">JAZZ <span class="logo-highlight">AUTO ELECTRIC</span></span>
+            </a>
+            
+            <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-menu" id="nav-links">
+                <a href="{% url 'bookings:home' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:home' %}active{% endif %}">Home</a>
+                <a href="{% url 'bookings:services' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:services' %}active{% endif %}">Services</a>
+                <a href="{% url 'inventory:shop' %}" class="nav-link {% if request.resolver_match.view_name == 'inventory:shop' %}active{% endif %}">Motor Spares</a>
+                <a href="{% url 'bookings:contact' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:contact' %}active{% endif %}">Contact</a>
+                <a href="{% url 'bookings:services' %}#booking-section" class="nav-btn-cta">Book Service</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Block -->
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <a href="{% url 'bookings:home' %}" class="logo footer-logo">
+                    <i class="fas fa-bolt logo-icon"></i>
+                    <span>JAZZ <span class="logo-highlight">AUTO ELECTRIC</span></span>
+                </a>
+                <p class="footer-description">
+                    Harare's premier center for modern vehicle diagnostics, precision auto-electrical engineering, and quality retail motor spares.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col links-col">
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="{% url 'bookings:home' %}">Home</a></li>
+                    <li><a href="{% url 'bookings:services' %}">Our Services</a></li>
+                    <li><a href="{% url 'inventory:shop' %}">Motor Spares Shop</a></li>
+                    <li><a href="{% url 'bookings:contact' %}">Contact Us</a></li>
+                    <li><a href="{% url 'bookings:services' %}#booking-section">Schedule Repair</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col contact-col">
+                <h4 class="footer-title">Contact Details</h4>
+                <ul class="footer-contact-info">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ BUSINESS_ADDRESS }}</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:{{ BUSINESS_PHONE_RAW }}">{{ BUSINESS_PHONE }}</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:{{ BUSINESS_EMAIL }}">{{ BUSINESS_EMAIL }}</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-col hours-col">
+                <h4 class="footer-title">Operating Hours</h4>
+                <ul class="footer-hours">
+                    <li><span class="day">Monday - Friday:</span> <span class="time">8:00 AM - 5:00 PM</span></li>
+                    <li><span class="day">Saturday:</span> <span class="time">8:00 AM - 1:00 PM</span></li>
+                    <li><span class="day">Sunday & Holidays:</span> <span class="time highlight-closed">Closed</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; {% now "Y" %} Jazz Auto Electric. All Rights Reserved. Designed with precision.</p>
+        </div>
+    </footer>
+
+    <!-- Sticky Mobile CTA Bar -->
+    <div class="sticky-cta-bar">
+        <a href="tel:{{ BUSINESS_PHONE_RAW }}" class="cta-item cta-call">
+            <i class="fas fa-phone-alt"></i>
+            <span>Call Us</span>
+        </a>
+        <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" class="cta-item cta-whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </a>
+    </div>
+
+    <!-- Global Business Info for Scripts -->
+    <script>
+        var workshopLat = {{ MAP_LATITUDE|default:-17.8485 }};
+        var workshopLng = {{ MAP_LONGITUDE|default:31.0605 }};
+        var businessName = "{{ BUSINESS_NAME|escapejs }}";
+        var businessAddress = "{{ BUSINESS_ADDRESS|escapejs }}";
+    </script>
+
+    <!-- Leaflet JS Map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

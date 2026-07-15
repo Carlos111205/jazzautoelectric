@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Services & Online Booking | Jazz Auto Electric{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header-section">
+    <div class="header-container">
+        <h1>Auto-Electrical Services</h1>
+        <p>Expert diagnostic scanning, repair, and troubleshooting for passenger and commercial vehicles.</p>
+    </div>
+</section>
+
+<!-- Services Detail List -->
+<section class="services-list-section">
+    <div class="services-vertical-grid">
+        {% for service in services %}
+        <div class="service-detail-card" id="service-{{ service.slug }}">
+            <div class="service-detail-header">
+                <i class="{{ service.icon_class }} detail-icon"></i>
+                <h2>{{ service.title }}</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>{{ service.description }}</p>
+                <div class="service-bullet-points">
+                    {% for bp in service.get_bullet_points_with_icons %}
+                    <span><i class="{{ bp.icon }}"></i> {{ bp.text }}</span>
+                    {% endfor %}
+                </div>
+                <button class="btn-primary select-booking-service" data-service="{{ service.slug }}">Book {{ service.title }}</button>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Fallback if database is not seeded yet -->
+        <!-- Service Card 1 -->
+        <div class="service-detail-card" id="service-diagnostics">
+            <div class="service-detail-header">
+                <i class="fas fa-laptop-code detail-icon"></i>
+                <h2>Computer Diagnostic Testing</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    Modern vehicles are computers on wheels. We perform factory-level ECU scans, sensor signal monitoring, wiring circuit analysis, and live telemetry tracking to identify exactly what is causing check-engine lights or mysterious electrical errors.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-microchip"></i> Full Fault Code Scan & Reset</span>
+                    <span><i class="fas fa-tachometer-alt"></i> Sensor Live Data Diagnostics</span>
+                    <span><i class="fas fa-network-wired"></i> CAN-Bus Network Troubleshooting</span>
+                    <span><i class="fas fa-sliders-h"></i> Adaptations & ECU Coding</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="diagnostics">Book Diagnostic Scan</button>
+            </div>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-detail-card" id="service-repairs">
+            <div class="service-detail-header">
+                <i class="fas fa-tools detail-icon"></i>
+                <h2>Electrical Repairs</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    From repairing frayed wire harnesses, splicing corroded connectors, and installing upgraded fuse boards, to resolving short circuits and fixing window regulators/door lock actuators. We repair electrical systems to factory standards.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-fire-extinguisher"></i> Short Circuit Repair</span>
+                    <span><i class="fas fa-plug"></i> Wiring Harness Splicing & Re-pinning</span>
+                    <span><i class="fas fa-lock"></i> Central Locking & Power Window Repair</span>
+                    <span><i class="fas fa-fan"></i> AC Blower & Radiator Fan Electricals</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="electrical_repairs">Book Electrical Repair</button>
+            </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-detail-card" id="service-battery">
+            <div class="service-detail-header">
+                <i class="fas fa-car-battery detail-icon"></i>
+                <h2>Battery Diagnostics & Replacement</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    A dead battery isn't always just a bad battery—it could be a parasitic draw or a weak alternator. We test your battery health and the alternator's charging voltage. If you need a replacement, we supply and register high-performance AGM or Maintenance-Free batteries.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-bolt"></i> CCA Load Testing & Health Check</span>
+                    <span><i class="fas fa-search-minus"></i> Parasitic Current Leak Test</span>
+                    <span><i class="fas fa-sync"></i> AGM & Start-Stop Battery Setup</span>
+                    <span><i class="fas fa-shield-alt"></i> Battery Terminal Reconditioning</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="battery_replacement">Book Battery Check</button>
+            </div>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-detail-card" id="service-alternator">
+            <div class="service-detail-header">
+                <i class="fas fa-sync-alt detail-icon"></i>
+                <h2>Alternator & Starter Repairs</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    Starting problems or battery warnings are often down to the starter motor or alternator. We rebuild your starter or alternator in-house, replacing worn carbon brushes, diodes, voltage regulators, internal bearings, and solenoid relays to save you money.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-cog"></i> Starter Solenoid Replacement</span>
+                    <span><i class="fas fa-atom"></i> Alternator Diode Plate & Brush Rebuilds</span>
+                    <span><i class="fas fa-signal"></i> Voltage Regulator Replacements</span>
+                    <span><i class="fas fa-shield-virus"></i> Heavy Duty Truck Starter Servicing</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="alternator_starter">Book Starter/Alternator Repair</button>
+            </div>
+        </div>
+
+        <!-- Service Card 5 -->
+        <div class="service-detail-card" id="service-troubleshooting">
+            <div class="service-detail-header">
+                <i class="fas fa-search detail-icon"></i>
+                <h2>General Auto-Electrical Troubleshooting</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    Whether it's a dashboard screen flickering, radio cutting out, alarms sounding randomly, or ABS/Airbag warnings illuminating, our auto-electrics engineers have the troubleshooting skills and schematics to track down the root cause.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-exclamation-triangle"></i> ABS, SRS (Airbag) Fault Repair</span>
+                    <span><i class="fas fa-tv"></i> Instrument Cluster & Screen Fixes</span>
+                    <span><i class="fas fa-bell-slash"></i> Car Alarm & Immobilizer Troubleshooting</span>
+                    <span><i class="fas fa-trailer"></i> Trailer Socket & Towbar Wiring</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="troubleshooting">Book Troubleshooting</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Symptom Diagnosis Assistant -->
+<section class="symptom-checker-section">
+    <div class="section-header-center">
+        <span class="section-subtitle">INTERACTIVE WIDGET</span>
+        <h2 class="section-title">Symptom Diagnosis Assistant</h2>
+        <div class="title-divider"></div>
+        <p>Select the symptoms your vehicle is experiencing to view potential auto-electrical faults.</p>
+    </div>
+
+    <div class="checker-container">
+        <div class="symptom-selector">
+            <h3>Select Vehicle Symptoms:</h3>
+            <div class="symptom-grid">
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="no-crank" data-title="Engine Won't Crank/Clicking Sound">
+                    <span>Engine Won't Crank / Clicking Sound</span>
+                </label>
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="dim-lights" data-title="Dim or Flickering Headlights">
+                    <span>Dim or Flickering Headlights</span>
+                </label>
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="draining" data-title="Battery Drains Overnight / Dead Battery">
+                    <span>Battery Drains Overnight / Dead Battery</span>
+                </label>
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="warning-light" data-title="Battery Charging Light on Dashboard">
+                    <span>Battery Warning Light on Dashboard</span>
+                </label>
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="blown-fuses" data-title="Fuses Blowing Repeatedly">
+                    <span>Fuses Blowing Repeatedly</span>
+                </label>
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="accessories" data-title="Windows, Locks, or Wipers Don't Work">
+                    <span>Windows, Locks, or Wipers Don't Work</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="symptom-result" id="diagnosis-result-box">
+            <div class="empty-state">
+                <i class="fas fa-laptop-medical"></i>
+                <p>Select one or more symptoms on the left to generate an auto-electrical diagnosis report.</p>
+            </div>
+            
+            <div class="diagnosis-report" style="display: none;">
+                <div class="report-header">
+                    <h4><i class="fas fa-poll-h"></i> DIAGNOSTIC REPORT</h4>
+                    <span class="conf-badge">Preview Analysis</span>
+                </div>
+                <div class="report-body">
+                    <div class="report-section">
+                        <h5>Potential Issue(s):</h5>
+                        <p id="diag-issues">Select symptoms first.</p>
+                    </div>
+                    <div class="report-section">
+                        <h5>Recommended Diagnostic Steps:</h5>
+                        <ul id="diag-steps">
+                        </ul>
+                    </div>
+                    <div class="report-section">
+                        <h5>Suggested Service Category:</h5>
+                        <span class="suggested-badge" id="diag-service-badge">Diagnostics</span>
+                    </div>
+                </div>
+                <button class="btn-primary" id="prefill-booking-btn">Apply Findings to Booking Form</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Booking Form Section -->
+<section class="booking-section" id="booking-section">
+    <div class="booking-container">
+        <div class="booking-info">
+            <span class="section-subtitle">SECURE APPOINTMENT</span>
+            <h2>Book Your Service Request</h2>
+            <p>
+                Fill out the booking form to reserve a diagnostics scan or electrical repair slot in our workshop. Once submitted, our team will review the availability and contact you via call/email to confirm your time slot.
+            </p>
+            <div class="booking-features">
+                <div class="b-feature-item">
+                    <i class="fas fa-user-check"></i>
+                    <div>
+                        <strong>Expert Engineers</strong>
+                        <p>Fully qualified auto-electrical team.</p>
+                    </div>
+                </div>
+                <div class="b-feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <strong>100% Secure Data</strong>
+                        <p>Your details are safely stored in our system.</p>
+                    </div>
+                </div>
+                <div class="b-feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <div>
+                        <strong>No Obligation Booking</strong>
+                        <p>Confirm final details over the phone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="booking-form-card">
+            <h3>Schedule Appointment</h3>
+            <form method="POST" action="{% url 'bookings:services' %}" class="auto-form">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="{{ form.name.id_for_label }}">Full Name</label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="{{ form.email.id_for_label }}">Email Address</label>
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                        {{ form.phone }}
+                        {{ form.phone.errors }}
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="{{ form.service_type.id_for_label }}">Service Needed</label>
+                        {{ form.service_type }}
+                        {{ form.service_type.errors }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-4">
+                        <label for="{{ form.vehicle_make.id_for_label }}">Vehicle Make</label>
+                        {{ form.vehicle_make }}
+                        {{ form.vehicle_make.errors }}
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="{{ form.vehicle_model.id_for_label }}">Vehicle Model</label>
+                        {{ form.vehicle_model }}
+                        {{ form.vehicle_model.errors }}
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="{{ form.vehicle_year.id_for_label }}">Vehicle Year</label>
+                        {{ form.vehicle_year }}
+                        {{ form.vehicle_year.errors }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label for="{{ form.preferred_date.id_for_label }}">Preferred Date</label>
+                        {{ form.preferred_date }}
+                        {{ form.preferred_date.errors }}
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="{{ form.preferred_time.id_for_label }}">Preferred Time Slot</label>
+                        {{ form.preferred_time }}
+                        {{ form.preferred_time.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.message.id_for_label }}">Symptoms / Problem Description</label>
+                    {{ form.message }}
+                    {{ form.message.errors }}
+                </div>
+
+                <button type="submit" class="btn-primary btn-block">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
