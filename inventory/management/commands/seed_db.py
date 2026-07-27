@@ -17,31 +17,42 @@ class Command(BaseCommand):
         Testimonial.objects.all().delete()
         
         # 2. Create Categories
+        # 2. Create Categories
         categories_data = [
             {
-                'name': 'Batteries & Charging',
-                'description': 'Premium automotive batteries, terminals, testers, and battery management components.',
+                'name': 'Toyota Hybrid Components',
+                'description': 'High-voltage hybrid battery cells, modules, balancing harnesses, and cooling blowers.',
                 'icon_class': 'fas fa-car-battery'
             },
             {
-                'name': 'Lighting Systems',
-                'description': 'High-performance LED conversions, bulbs, relays, and complete wiring assemblies.',
-                'icon_class': 'fas fa-lightbulb'
+                'name': 'Honda Dual Clutch Parts',
+                'description': 'Honda GP series dual clutch sets, release bearings, actuator fluids, and sensor modules.',
+                'icon_class': 'fas fa-cogs'
             },
             {
-                'name': 'Sensors & Engine Electrical',
-                'description': 'Engine management sensors, ABS sensors, spark plugs, ignition coils, and oxygen sensors.',
-                'icon_class': 'fas fa-microchip'
+                'name': 'Batteries & Charging',
+                'description': 'Premium automotive AGM batteries, heavy-duty terminals, testers, and power management.',
+                'icon_class': 'fas fa-bolt'
             },
             {
                 'name': 'Starters & Alternators',
-                'description': 'Heavy-duty starter motors, alternators, regulators, solenoids, and repair components.',
+                'description': 'Heavy-duty starter motors, high-output alternators, regulators, solenoids, and diode plates.',
                 'icon_class': 'fas fa-sync-alt'
             },
             {
+                'name': 'Sensors & Engine Electrical',
+                'description': 'Engine management sensors, O2 sensors, MAF sensors, ignition coils, and ECU relays.',
+                'icon_class': 'fas fa-microchip'
+            },
+            {
                 'name': 'Wiring & Accessories',
-                'description': 'Professional grade automotive wires, fuses, connectors, terminal blocks, and switches.',
+                'description': 'Professional automotive wires, fuse blocks, switches, relays, and custom harness kits.',
                 'icon_class': 'fas fa-plug'
+            },
+            {
+                'name': 'Lighting Systems',
+                'description': 'High-performance LED conversions, xenon bulbs, flashers, and auxiliary light bars.',
+                'icon_class': 'fas fa-lightbulb'
             }
         ]
         
@@ -54,126 +65,8 @@ class Command(BaseCommand):
             )
             categories[cat.name] = cat
             
-        # 3. Create Parts
-        parts_data = [
-            # Batteries & Charging
-            {
-                'name': 'Exide Premium AGM Battery 12V 70Ah',
-                'category': 'Batteries & Charging',
-                'sku': 'EX-AGM-70',
-                'description': 'Heavy-duty Absorbent Glass Mat (AGM) battery, ideal for modern vehicles with start-stop technology and high electrical demands.',
-                'price': 145.00,
-                'specifications': 'Voltage: 12V\nCapacity: 70 Ah\nCCA: 760 A\nTechnology: AGM\nDimensions: 278 x 175 x 190 mm\nWarranty: 12 Months'
-            },
-            {
-                'name': 'Heavy-Duty Brass Battery Terminals (Pair)',
-                'category': 'Batteries & Charging',
-                'sku': 'BT-BR-HD',
-                'description': 'Solid brass battery terminal clamps (positive and negative). Provides maximum conductivity and corrosion resistance for high-current auto-electrical connections.',
-                'price': 12.50,
-                'specifications': 'Material: Solid Brass\nPolarity: Positive (+) & Negative (-)\nConnection: Bolt-on\nCompatibility: Standard post batteries'
-            },
-            {
-                'name': 'Digital Battery and Alternator Tester',
-                'category': 'Batteries & Charging',
-                'sku': 'BT-DIG-100',
-                'description': 'Handheld 12V digital battery analyzer. Quickly tests battery health, cold cranking amps (CCA), and charging system/alternator output.',
-                'price': 45.00,
-                'specifications': 'Compatibility: 12V Batteries\nTest Range: 100 - 2000 CCA\nDisplay: Backlit LCD screen\nLanguage: English\nPower: Powered by vehicle battery'
-            },
-            
-            # Lighting Systems
-            {
-                'name': 'H4 LED Headlight Conversion Kit 6000K',
-                'category': 'Lighting Systems',
-                'sku': 'LT-LED-H4',
-                'description': 'Ultra-bright H4 LED headlight bulbs featuring advanced CSP chips. Delivers a clean 6000K cool white light with a perfect beam pattern and high-speed cooling fan.',
-                'price': 38.00,
-                'specifications': 'Bulb Type: H4 (High/Low Beam)\nBrightness: 12,000 LM per pair\nColor Temp: 6000K Cool White\nWattage: 50W per bulb\nLifespan: >30,000 hours\nWaterproof: IP67'
-            },
-            {
-                'name': '4-Pin 12V 40A Waterproof Relay with Harness',
-                'category': 'Lighting Systems',
-                'sku': 'RL-WP-40A',
-                'description': 'Professional-grade automotive relay with pre-wired socket harness. Sealed waterproof design, ideal for wiring auxiliary driving lights, horn, and fuel pumps.',
-                'price': 8.99,
-                'specifications': 'Voltage: 12V DC\nRating: 40 Amps\nPin Count: 4-Pin\nWire Gauge: 12 AWG (Power), 16 AWG (Trigger)\nHarness Length: 15 cm'
-            },
-            {
-                'name': 'Universal 12-LED Slim Amber Strobe Light Bar',
-                'category': 'Lighting Systems',
-                'sku': 'LT-STRB-12A',
-                'description': 'High-intensity amber warning strobe light. Slim profile design for grille or surface mount. Features 18 selectable flash patterns with pattern memory.',
-                'price': 22.00,
-                'specifications': 'Voltage: 12V - 24V DC\nLED Count: 12 High-Power LEDs\nColor: Amber\nPatterns: 18 flash modes\nWiring: 3-wire connection (Red, Black, Yellow)'
-            },
-            
-            # Sensors & Engine Electrical
-            {
-                'name': 'Bosch Universal 4-Wire Oxygen (O2) Sensor',
-                'category': 'Sensors & Engine Electrical',
-                'sku': 'SN-BOS-O2',
-                'description': 'Premium replacement heated oxygen sensor. Restores engine efficiency, reduces emissions, and improves fuel economy. Built with patented planar technology.',
-                'price': 65.00,
-                'specifications': 'Sensor Type: Heated (4-wire)\nThread Size: M18 x 1.5\nWire Length: 30 cm\nInstallation: Universal splicing kit included\nOEM Compatibility: Replaces standard 4-wire sensors'
-            },
-            {
-                'name': 'Universal Ignition Coil Pack 12V',
-                'category': 'Sensors & Engine Electrical',
-                'sku': 'CO-UNIV-12V',
-                'description': 'High-output ignition coil designed to deliver reliable sparks under high-performance conditions. Direct fit replacement for multiple passenger vehicle brands.',
-                'price': 42.50,
-                'specifications': 'Primary Resistance: 0.7 Ohms\nSecondary Resistance: 12k Ohms\nMax Voltage: 40,000V\nTerminal Type: HEI post\nMounting Bracket: Included'
-            },
-            
-            # Starters & Alternators
-            {
-                'name': '12V 90A High Output Universal Alternator',
-                'category': 'Starters & Alternators',
-                'sku': 'AL-UNIV-90A',
-                'description': 'Brand new high-output alternator suitable for various petrol and diesel engines. Built with heavy-duty bearings and premium internal copper windings to ensure stable voltage output.',
-                'price': 135.00,
-                'specifications': 'Voltage: 12V\nOutput: 90 Amps\nMounting Type: Spool (Universal)\nPulley Type: 1-Groove V-belt\nRegulator: Internal electronic'
-            },
-            {
-                'name': 'Starter Motor Solenoid Switch 12V',
-                'category': 'Starters & Alternators',
-                'sku': 'ST-SOL-12V',
-                'description': 'Heavy-duty starter solenoid. Solves common "click-only" starter problems. Designed to handle high-current starting loads without contact pitting.',
-                'price': 19.50,
-                'specifications': 'Voltage: 12V\nTerminal Thread: M8 Copper\nMounting: 2-bolt base flange\nDuty Cycle: Intermittent'
-            },
-            
-            # Wiring & Accessories
-            {
-                'name': 'Premium 100ft Roll 14 AWG Automotive Wire',
-                'category': 'Wiring & Accessories',
-                'sku': 'WR-14AWG-BK',
-                'description': 'High-quality copper conductor wire with oil, acid, and heat resistant PVC insulation. Perfect for dashboard wiring, lighting kits, and light accessories.',
-                'price': 28.00,
-                'specifications': 'Gauge: 14 AWG\nConductor: Stranded Copper\nLength: 100 feet (30.4m)\nColor: Black\nMax Temp: 105 degrees Celsius\nMax Voltage: 60V DC'
-            },
-            {
-                'name': '6-Way Fuse Block Box with LED Warning Indicator',
-                'category': 'Wiring & Accessories',
-                'sku': 'FB-6W-LED',
-                'description': 'Compact blade fuse panel with a clear plastic cover. Red LED warning light glows instantly when a fuse blows, allowing rapid troubleshooting.',
-                'price': 18.50,
-                'specifications': 'Input Rating: 100A Max\nOutput Rating: 30A Max per circuit\nFuse Type: Standard ATC/ATO blade\nIndicator: Red LED\nMaterial: PBT Base, Polycarbonate Cover'
-            }
-        ]
-        
-        for part_info in parts_data:
-            cat = categories[part_info['category']]
-            Part.objects.create(
-                name=part_info['name'],
-                category=cat,
-                sku=part_info['sku'],
-                description=part_info['description'],
-                price=part_info['price'],
-                specifications=part_info['specifications'],
-                is_available=True
-            )
+        # 3. Parts table is intentionally left empty so the business owner can populate real inventory.
+        self.stdout.write("Parts table initialized clean (0 dummy parts). Ready for owner stock management.")
             
         # 4. Create Company Profile
         CompanyProfile.objects.create(
@@ -336,4 +229,4 @@ class Command(BaseCommand):
         else:
             self.stdout.write("Superuser 'admin' already exists.")
 
-        self.stdout.write(self.style.SUCCESS(f'Successfully seeded {len(categories)} categories, {len(parts_data)} parts, 5 services, and 3 testimonials.'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully seeded {len(categories)} categories, 0 initial parts (ready for owner inventory), 6 services, and 3 testimonials.'))

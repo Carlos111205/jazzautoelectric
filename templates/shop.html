@@ -15,6 +15,26 @@
 <!-- Shop Catalog Main Section -->
 <section class="shop-catalog-section">
     <div class="shop-container">
+        
+        <!-- Owner Quick Stock Manager Control Bar -->
+        <div class="owner-controls-banner" style="background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(245, 176, 22, 0.3); border-radius: 12px; padding: 15px 20px; margin-bottom: 30px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+            <div style="display: flex; align-items: center; gap: 10px; color: #f8fafc;">
+                <i class="fas fa-boxes-packing" style="color: #f5b016; font-size: 1.4rem;"></i>
+                <div>
+                    <h4 style="margin: 0; font-size: 1rem; color: #f5b016; font-weight: 700;">Owner Stock Control Center</h4>
+                    <p style="margin: 0; font-size: 0.82rem; color: #94a3b8;">Log in to the admin panel to add new spare parts, update prices, or change stock availability.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="/admin/inventory/part/add/" target="_blank" class="btn-primary" style="font-size: 0.85rem; padding: 8px 16px; background: linear-gradient(135deg, #f5b016, #d97706); color: #0f172a; font-weight: 700; border: none;">
+                    <i class="fas fa-plus-circle"></i> + Add Spare Part
+                </a>
+                <a href="/admin/inventory/part/" target="_blank" class="btn-secondary" style="font-size: 0.85rem; padding: 8px 16px; border-color: rgba(245, 176, 22, 0.5); color: #f8fafc;">
+                    <i class="fas fa-tasks"></i> Manage All Stock
+                </a>
+            </div>
+        </div>
+
         <!-- Search & Filter Controls -->
         <div class="shop-controls">
             <!-- Text Search Bar -->
@@ -114,7 +134,7 @@
 
                     <div class="part-actions">
                         <!-- Custom pre-filled WhatsApp link for this specific part -->
-                        <a href="https://wa.me/263772456789?text=Hi%20Jazz%20Auto%20Electric,%20I'm%20interested%20in%20purchasing%20the%20{{ part.name|urlencode }}%20(SKU:%20{{ part.sku|urlencode }}).%20Is%20it%20available?" 
+                        <a href="{{ BUSINESS_WHATSAPP_URL }}&text=Hi%20Jazz%20Auto%20Electrics,%20I'm%20interested%20in%20purchasing%20the%20{{ part.name|urlencode }}%20(SKU:%20{{ part.sku|urlencode }}).%20Is%20it%20available?" 
                            target="_blank" 
                            class="btn-primary btn-block whatsapp-order-btn">
                             <i class="fab fa-whatsapp"></i> Order / Inquire
@@ -122,11 +142,20 @@
                     </div>
                 </div>
             {% empty %}
-                <div class="empty-shop-state">
-                    <i class="fas fa-search-minus"></i>
-                    <h3>No spare parts found</h3>
-                    <p>We couldn't find any motor spares matching your criteria. Try adjusting your filters or search query, or contact us directly.</p>
-                    <a href="{% url 'inventory:shop' %}" class="btn-primary">Clear Filters</a>
+                <div class="empty-shop-state" style="grid-column: 1 / -1; padding: 50px 20px; text-align: center; background: rgba(30, 41, 59, 0.4); border: 1px dashed rgba(245, 176, 22, 0.3); border-radius: 16px; margin-top: 20px;">
+                    <i class="fas fa-boxes" style="font-size: 3.5rem; color: #f5b016; margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 1.6rem; color: #f8fafc; margin-bottom: 10px;">Stock Catalog Being Updated</h3>
+                    <p style="max-width: 600px; margin: 0 auto 25px auto; color: #94a3b8; line-height: 1.6;">
+                        We are currently updating our active motor spares catalog. We stock genuine auto-electrical components for Toyota Hybrids, Honda GP Series, Starters, Alternators, Wiring & Sensors.
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" class="btn-primary">
+                            <i class="fab fa-whatsapp"></i> Inquire Parts via WhatsApp
+                        </a>
+                        <a href="/admin/inventory/part/add/" target="_blank" class="btn-secondary">
+                            <i class="fas fa-plus-circle"></i> Owner: Add New Spare Part
+                        </a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
