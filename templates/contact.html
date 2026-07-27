@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Contact Us & Location | Jazz Auto Electric{% endblock %}
+{% block title %}Contact Us & Location | Jazz Auto Electrics{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
-<section class="page-header-section">
+<section class="page-header-section" style="background-image: linear-gradient(180deg, rgba(10, 15, 29, 0.85), rgba(10, 15, 29, 0.85)), url('{% static 'images/car_honda_vezel_white.jpg' %}');">
     <div class="header-container">
         <h1>Contact & Location</h1>
-        <p>Get in touch with our auto-electrical engineers or visit our shop in Graniteside, Harare.</p>
+        <p>Get in touch with our auto-electrical engineers or visit our workshop in Cold Comfort, Harare.</p>
     </div>
 </section>
 
@@ -36,12 +36,29 @@
                 <div class="c-detail-card">
                     <div class="c-icon-wrapper"><i class="fas fa-phone-alt"></i></div>
                     <div class="c-text-wrapper">
-                        <h4>Phone / WhatsApp</h4>
-                        <p><a href="tel:{{ BUSINESS_PHONE_RAW }}">{{ BUSINESS_PHONE }}</a></p>
+                        <h4>Phone & Mobile Workshop</h4>
+                        <p>
+                            <a href="tel:{{ BUSINESS_PHONE_RAW }}">{{ BUSINESS_PHONE }}</a> (Primary)<br>
+                            <a href="tel:{{ BUSINESS_ALT_PHONE_RAW }}">{{ BUSINESS_ALT_PHONE }}</a> (Econet / Mobile)
+                        </p>
                     </div>
                 </div>
                 
                 <!-- Card 3 -->
+                <div class="c-detail-card">
+                    <div class="c-icon-wrapper"><i class="fas fa-share-alt"></i></div>
+                    <div class="c-text-wrapper">
+                        <h4>Connect On Social Media</h4>
+                        <p style="display: flex; gap: 15px; margin-top: 5px; font-size: 1.2rem;">
+                            <a href="{{ BUSINESS_FACEBOOK_URL }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="{{ BUSINESS_INSTAGRAM_URL }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="{{ BUSINESS_TIKTOK_URL }}" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
                 <div class="c-detail-card">
                     <div class="c-icon-wrapper"><i class="fas fa-envelope"></i></div>
                     <div class="c-text-wrapper">
@@ -50,7 +67,7 @@
                     </div>
                 </div>
 
-                <!-- Card 4 -->
+                <!-- Card 5 -->
                 <div class="c-detail-card">
                     <div class="c-icon-wrapper"><i class="fas fa-clock"></i></div>
                     <div class="c-text-wrapper">
@@ -108,7 +125,7 @@
 <section class="map-section">
     <div class="map-header">
         <span class="section-subtitle">INTERACTIVE MAP</span>
-        <h2>Find Us in Graniteside, Harare</h2>
+        <h2>Find Us in Cold Comfort, Harare</h2>
         <div class="title-divider"></div>
     </div>
     

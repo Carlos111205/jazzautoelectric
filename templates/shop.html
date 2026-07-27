@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Motor Spares Catalog | Jazz Auto Electric{% endblock %}
+{% block title %}Motor Spares Catalog | Jazz Auto Electrics{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
-<section class="page-header-section">
+<section class="page-header-section" style="background-image: linear-gradient(180deg, rgba(10, 15, 29, 0.85), rgba(10, 15, 29, 0.85)), url('{% static 'images/car_nissan_note_orange.jpg' %}');">
     <div class="header-container">
         <h1>Motor Spares Catalog</h1>
         <p>Premium auto-electrical spare parts, components, and wiring accessories ready for dispatch.</p>
@@ -70,10 +70,16 @@
                         {% endif %}
                     </div>
                     
-                    <div class="part-image-placeholder">
-                        <i class="{{ part.category.icon_class }}"></i>
-                        <span>{{ part.sku|default:"SPARE PART" }}</span>
-                    </div>
+                    {% if part.image %}
+                        <div class="part-image">
+                            <img src="{{ part.image.url }}" alt="{{ part.name }}">
+                        </div>
+                    {% else %}
+                        <div class="part-image-placeholder">
+                            <i class="{{ part.category.icon_class }}"></i>
+                            <span>{{ part.sku|default:"SPARE PART" }}</span>
+                        </div>
+                    {% endif %}
 
                     <div class="part-details">
                         <h3 class="part-title">{{ part.name }}</h3>

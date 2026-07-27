@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Jazz Auto Electric | Auto-Electrical Experts & Spares{% endblock %}</title>
+    <title>{% block title %}Jazz Auto Electrics | Auto-Electrical Experts & Spares{% endblock %}</title>
     
     <!-- Meta tags for SEO -->
-    <meta name="description" content="{% block meta_description %}Jazz Auto Electric in Harare, Zimbabwe specializes in professional auto-electrical repairs, diagnostics, alternator/starter repairs, battery replacement, and premium motor spares retail.{% endblock %}">
+    <meta name="description" content="{% block meta_description %}Jazz Auto Electrics in Harare, Zimbabwe specializes in professional auto-electrical repairs, diagnostics, alternator/starter repairs, battery replacement, and premium motor spares retail.{% endblock %}">
     <meta name="keywords" content="auto electric, car diagnostics, alternator repair, starter repair, motor spares harare, car battery zimbabwe, jazz auto electric">
-    <meta name="author" content="Jazz Auto Electric">
+    <meta name="author" content="Jazz Auto Electrics">
     
     <!-- Google Fonts: Inter & Orbitron (for technical accents) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
     
     <!-- Custom CSS -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.1">
     
     {% block extra_head %}{% endblock %}
 </head>
@@ -33,8 +33,11 @@
     <header class="navbar-header" id="navbar">
         <div class="nav-container">
             <a href="{% url 'bookings:home' %}" class="logo">
-                <i class="fas fa-bolt logo-icon"></i>
-                <span class="logo-text">JAZZ <span class="logo-highlight">AUTO ELECTRIC</span></span>
+                <img src="{% static 'images/logo.png' %}" alt="Jazz Auto Electrics Logo" class="brand-logo-img">
+                <div class="logo-text-wrapper">
+                    <span class="logo-text">JAZZ <span class="logo-highlight">AUTO ELECTRICS</span></span>
+                    <span class="logo-slogan">{{ BUSINESS_SLOGAN }}</span>
+                </div>
             </a>
             
             <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
@@ -62,17 +65,20 @@
         <div class="footer-container">
             <div class="footer-col brand-col">
                 <a href="{% url 'bookings:home' %}" class="logo footer-logo">
-                    <i class="fas fa-bolt logo-icon"></i>
-                    <span>JAZZ <span class="logo-highlight">AUTO ELECTRIC</span></span>
+                    <img src="{% static 'images/logo.png' %}" alt="Jazz Auto Electrics Logo" class="brand-logo-img footer-logo-img">
+                    <div class="logo-text-wrapper">
+                        <span>JAZZ <span class="logo-highlight">AUTO ELECTRICS</span></span>
+                        <span class="logo-slogan">{{ BUSINESS_SLOGAN }}</span>
+                    </div>
                 </a>
                 <p class="footer-description">
-                    Harare's premier center for modern vehicle diagnostics, precision auto-electrical engineering, and quality retail motor spares.
+                    Hybrids & Non-Hybrids Specialists. Hybrid Mobile Workshop traveling all around Zimbabwe for diagnostics, electrical repairs, battery servicing, and quality spares.
                 </p>
                 <div class="footer-socials">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ BUSINESS_FACEBOOK_URL }}" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="{{ BUSINESS_INSTAGRAM_URL }}" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ BUSINESS_TIKTOK_URL }}" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                     <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             
@@ -96,7 +102,10 @@
                     </li>
                     <li>
                         <i class="fas fa-phone-alt"></i>
-                        <a href="tel:{{ BUSINESS_PHONE_RAW }}">{{ BUSINESS_PHONE }}</a>
+                        <div>
+                            <a href="tel:{{ BUSINESS_PHONE_RAW }}">{{ BUSINESS_PHONE }}</a><br>
+                            <a href="tel:{{ BUSINESS_ALT_PHONE_RAW }}">{{ BUSINESS_ALT_PHONE }}</a>
+                        </div>
                     </li>
                     <li>
                         <i class="fas fa-envelope"></i>
@@ -116,7 +125,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; {% now "Y" %} Jazz Auto Electric. All Rights Reserved. Designed with precision.</p>
+            <p>&copy; {% now "Y" %} Jazz Auto Electrics. All Rights Reserved. Designed with precision.</p>
         </div>
     </footer>
 

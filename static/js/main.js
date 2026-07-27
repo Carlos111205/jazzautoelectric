@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Jazz Auto Electric - Interactive Frontend Engine
+   Jazz Auto Electrics - Interactive Frontend Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -107,7 +107,27 @@ document.addEventListener('DOMContentLoaded', function() {
         let serviceName = 'Diagnostic Testing';
 
         // Core symptoms rule engine
-        if (values.includes('no-crank')) {
+        if (values.includes('hybrid-battery')) {
+            issues = 'Toyota High Voltage (HV) battery cell degradation, voltage imbalance across modules, or clogged HV cooling fan.';
+            steps = [
+                'Perform high-precision live cell voltage analysis using dealer-level diagnostic scanners.',
+                'Perform battery balancing test across individual high voltage cell modules.',
+                'Identify and isolate weak high-voltage battery cells for precision replacement.'
+            ];
+            serviceKey = 'hybrid_battery';
+            serviceName = 'Toyota Hybrid HV Battery Servicing';
+        }
+        else if (values.includes('dual-clutch')) {
+            issues = 'Honda GP dual clutch wear, release bearing failure, or clutch fluid actuator pressure loss.';
+            steps = [
+                'Inspect dual clutch wear parameters and actuator fluid levels.',
+                'Perform diagnostic scan for i-DCD dual clutch fault codes & slip ratios.',
+                'Schedule brand-new OEM dual clutch & release bearing replacement with touch-point relearn.'
+            ];
+            serviceKey = 'dual_clutch';
+            serviceName = 'Honda GP Dual Clutch Replacement';
+        }
+        else if (values.includes('no-crank')) {
             issues = 'Faulty starter motor solenoid, complete battery failure, or ignition switch circuit break.';
             steps = [
                 'Load test vehicle battery to check under-load cranking voltage.',
@@ -135,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Verify alternator charging voltage output.'
             ];
             serviceKey = 'battery_replacement';
-            serviceName = 'Battery Replacement';
+            serviceName = 'Standard Battery Replacement';
         }
         else if (values.includes('blown-fuses')) {
             issues = 'Active short circuit in vehicle power wiring lines.';
@@ -160,12 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             issues = 'Intermittent auto-electrical fault or sensor signal distortion.';
             steps = [
-                'Run full OBD2 diagnostic scan on vehicle ECUs.',
+                'Run full dealer-level OBD2 diagnostic scan on vehicle ECUs.',
                 'Verify sensor signal loops and ground pins.',
                 'Check dashboard logs history.'
             ];
             serviceKey = 'diagnostics';
-            serviceName = 'Diagnostic Testing';
+            serviceName = 'Dealer-Level Diagnostic Testing';
         }
 
         // Store calculations globally to apply to booking form
@@ -183,14 +203,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         const serviceBadge = document.getElementById('diag-service-badge');
-        serviceBadge.textContent = serviceName;
-        // Dynamically style based on service type
-        if (serviceKey === 'alternator_starter') {
-            serviceBadge.style.borderColor = 'var(--color-accent-yellow)';
-            serviceBadge.style.color = 'var(--color-accent-yellow)';
-        } else {
-            serviceBadge.style.borderColor = 'var(--color-accent-blue)';
-            serviceBadge.style.color = 'var(--color-accent-blue)';
+        if (serviceBadge) {
+            serviceBadge.textContent = serviceName;
+            // Dynamically style based on service type
+            if (serviceKey === 'hybrid_battery' || serviceKey === 'dual_clutch') {
+                serviceBadge.style.borderColor = 'var(--color-accent-yellow)';
+                serviceBadge.style.color = 'var(--color-accent-yellow)';
+            } else {
+                serviceBadge.style.borderColor = 'var(--color-accent-blue)';
+                serviceBadge.style.color = 'var(--color-accent-blue)';
+            }
         }
     }
 
@@ -277,10 +299,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mapElement && typeof L !== 'undefined') {
         
         // Coordinates: workshopLat, workshopLng must be loaded from window context (in contact.html)
-        const lat = typeof workshopLat !== 'undefined' ? workshopLat : -17.8485;
-        const lng = typeof workshopLng !== 'undefined' ? workshopLng : 31.0605;
-        const name = typeof businessName !== 'undefined' ? businessName : 'Jazz Auto Electric';
-        const address = typeof businessAddress !== 'undefined' ? businessAddress : 'Graniteside, Harare';
+        const lat = typeof workshopLat !== 'undefined' ? workshopLat : -17.8228;
+        const lng = typeof workshopLng !== 'undefined' ? workshopLng : 30.9856;
+        const name = typeof businessName !== 'undefined' ? businessName : 'Jazz Auto Electrics';
+        const address = typeof businessAddress !== 'undefined' ? businessAddress : 'Cold Comfort, Harare';
 
         // Initialize Map
         const map = L.map('contact-map', {

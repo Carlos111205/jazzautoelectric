@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Our Services & Online Booking | Jazz Auto Electric{% endblock %}
+{% block title %}Our Services & Online Booking | Jazz Auto Electrics{% endblock %}
 
 {% block content %}
 <!-- Page Header -->
-<section class="page-header-section">
+<section class="page-header-section" style="background-image: linear-gradient(180deg, rgba(10, 15, 29, 0.85), rgba(10, 15, 29, 0.85)), url('{% static 'images/car_honda_vezel_modulo.jpg' %}');">
     <div class="header-container">
         <h1>Auto-Electrical Services</h1>
         <p>Expert diagnostic scanning, repair, and troubleshooting for passenger and commercial vehicles.</p>
@@ -37,27 +37,67 @@
         <div class="service-detail-card" id="service-diagnostics">
             <div class="service-detail-header">
                 <i class="fas fa-laptop-code detail-icon"></i>
-                <h2>Computer Diagnostic Testing</h2>
+                <h2>Computer & Dealer-Level Diagnostic Testing</h2>
             </div>
             <div class="service-detail-body">
                 <p>
-                    Modern vehicles are computers on wheels. We perform factory-level ECU scans, sensor signal monitoring, wiring circuit analysis, and live telemetry tracking to identify exactly what is causing check-engine lights or mysterious electrical errors.
+                    Equipped with dealer-level diagnostics scanners and high-precision testing equipment. We perform factory-level ECU scans, sensor signal monitoring, wiring circuit analysis, and live telemetry tracking to accurately identify and resolve complex electrical issues.
                 </p>
                 <div class="service-bullet-points">
+                    <span><i class="fas fa-laptop-code"></i> Dealer-Level Diagnostics Scanners & Scopes</span>
                     <span><i class="fas fa-microchip"></i> Full Fault Code Scan & Reset</span>
-                    <span><i class="fas fa-tachometer-alt"></i> Sensor Live Data Diagnostics</span>
-                    <span><i class="fas fa-network-wired"></i> CAN-Bus Network Troubleshooting</span>
-                    <span><i class="fas fa-sliders-h"></i> Adaptations & ECU Coding</span>
+                    <span><i class="fas fa-tachometer-alt"></i> Live Sensor Telemetry Diagnostics</span>
+                    <span><i class="fas fa-sliders-h"></i> ECU Coding & Module Adaptations</span>
                 </div>
                 <button class="btn-primary select-booking-service" data-service="diagnostics">Book Diagnostic Scan</button>
             </div>
         </div>
 
         <!-- Service Card 2 -->
-        <div class="service-detail-card" id="service-repairs">
+        <div class="service-detail-card" id="service-hybrid_battery">
+            <div class="service-detail-header">
+                <i class="fas fa-car-battery detail-icon"></i>
+                <h2>Toyota Hybrid High Voltage (HV) Battery Servicing</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    Comprehensive battery diagnosis & replacement of all Toyota hybrids (Prius, Aqua, Axio, Fielder, Camry, Harrier, etc.). We perform high voltage battery balancing & voltage analysis, and replace weak high voltage cells to save you money over full pack replacement.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-car-battery"></i> Diagnosis & Replacement of All Toyota Hybrids</span>
+                    <span><i class="fas fa-balance-scale"></i> Battery Balancing & Individual Voltage Analysis</span>
+                    <span><i class="fas fa-tools"></i> Individual Weak High Voltage Cell Replacement</span>
+                    <span><i class="fas fa-bolt"></i> Complete High Voltage Pack Refurbishment</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="hybrid_battery">Book Hybrid Battery Check</button>
+            </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-detail-card" id="service-dual_clutch">
+            <div class="service-detail-header">
+                <i class="fas fa-cogs detail-icon"></i>
+                <h2>Honda GP Dual Clutch Replacement & Servicing</h2>
+            </div>
+            <div class="service-detail-body">
+                <p>
+                    All Honda GP models (Fit GP1, GP4, GP5, Vezel, Grace, Shuttle, Freed, etc.) need good care. We do full service of the dual clutch, and when failed, we replace it with a brand new clutch & release bearing along with actuator fluid servicing & calibration.
+                </p>
+                <div class="service-bullet-points">
+                    <span><i class="fas fa-cog"></i> Honda GP Series Dual Clutch Replacement</span>
+                    <span><i class="fas fa-shield-alt"></i> Brand New OEM Clutch & Release Bearing</span>
+                    <span><i class="fas fa-oil-can"></i> Dual Clutch Actuator Fluid Service & Bleeding</span>
+                    <span><i class="fas fa-sliders-h"></i> Touch-Point Re-learning & Software Calibration</span>
+                </div>
+                <button class="btn-primary select-booking-service" data-service="dual_clutch">Book Dual Clutch Service</button>
+            </div>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-detail-card" id="service-electrical_repairs">
             <div class="service-detail-header">
                 <i class="fas fa-tools detail-icon"></i>
-                <h2>Electrical Repairs</h2>
+                <h2>Electrical Repairs & Wiring Harnesses</h2>
             </div>
             <div class="service-detail-body">
                 <p>
@@ -73,28 +113,8 @@
             </div>
         </div>
 
-        <!-- Service Card 3 -->
-        <div class="service-detail-card" id="service-battery">
-            <div class="service-detail-header">
-                <i class="fas fa-car-battery detail-icon"></i>
-                <h2>Battery Diagnostics & Replacement</h2>
-            </div>
-            <div class="service-detail-body">
-                <p>
-                    A dead battery isn't always just a bad battery—it could be a parasitic draw or a weak alternator. We test your battery health and the alternator's charging voltage. If you need a replacement, we supply and register high-performance AGM or Maintenance-Free batteries.
-                </p>
-                <div class="service-bullet-points">
-                    <span><i class="fas fa-bolt"></i> CCA Load Testing & Health Check</span>
-                    <span><i class="fas fa-search-minus"></i> Parasitic Current Leak Test</span>
-                    <span><i class="fas fa-sync"></i> AGM & Start-Stop Battery Setup</span>
-                    <span><i class="fas fa-shield-alt"></i> Battery Terminal Reconditioning</span>
-                </div>
-                <button class="btn-primary select-booking-service" data-service="battery_replacement">Book Battery Check</button>
-            </div>
-        </div>
-
-        <!-- Service Card 4 -->
-        <div class="service-detail-card" id="service-alternator">
+        <!-- Service Card 5 -->
+        <div class="service-detail-card" id="service-alternator_starter">
             <div class="service-detail-header">
                 <i class="fas fa-sync-alt detail-icon"></i>
                 <h2>Alternator & Starter Repairs</h2>
@@ -113,7 +133,7 @@
             </div>
         </div>
 
-        <!-- Service Card 5 -->
+        <!-- Service Card 6 -->
         <div class="service-detail-card" id="service-troubleshooting">
             <div class="service-detail-header">
                 <i class="fas fa-search detail-icon"></i>
@@ -149,6 +169,14 @@
         <div class="symptom-selector">
             <h3>Select Vehicle Symptoms:</h3>
             <div class="symptom-grid">
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="hybrid-battery" data-title="Toyota Hybrid Check System / HV Battery Warning / Weak Cells">
+                    <span>Toyota Hybrid HV Battery Warning / Weak Cells</span>
+                </label>
+                <label class="symptom-option">
+                    <input type="checkbox" class="symptom-checkbox" value="dual-clutch" data-title="Honda GP Transmission Judder / Dual Clutch Shift Failure">
+                    <span>Honda GP Dual Clutch Judder / Shift Failure</span>
+                </label>
                 <label class="symptom-option">
                     <input type="checkbox" class="symptom-checkbox" value="no-crank" data-title="Engine Won't Crank/Clicking Sound">
                     <span>Engine Won't Crank / Clicking Sound</span>

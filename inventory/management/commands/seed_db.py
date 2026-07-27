@@ -177,37 +177,75 @@ class Command(BaseCommand):
             
         # 4. Create Company Profile
         CompanyProfile.objects.create(
-            name='Jazz Auto Electric',
-            phone='+263 77 245 6789',
-            phone_raw='+263772456789',
-            whatsapp='+263 77 245 6789',
-            whatsapp_url='https://wa.me/263772456789?text=Hi%20Jazz%20Auto%20Electric,%20I%20would%20like%20to%20inquire%20about%20your%20services%20or%20motor%20spares.',
-            email='info@jazzautoelectric.co.zw',
-            address='Plot 104, Cripps Road, Graniteside, Harare, Zimbabwe',
+            name='Jazz Auto Electrics',
+            slogan='Where Precision Meets Harmony',
+            phone='+263 71 294 8625',
+            phone_raw='+263712948625',
+            alt_phone='+263 77 425 5065',
+            alt_phone_raw='+263774255065',
+            whatsapp='+263 71 294 8625',
+            whatsapp_url='https://wa.me/263712948625?text=Hi%20Jazz%20Auto%20Electrics,%20I%20would%20like%20to%20inquire%20about%20your%20services%20or%20motor%20spares.',
+            facebook_url='https://www.facebook.com/profile.php?id=100064758844406',
+            instagram_url='https://www.instagram.com/jazz_auto_electrics/',
+            tiktok_url='https://www.tiktok.com/@jazzauto_electrics',
+            email='info@jazzautoelectrics.co.zw',
+            address='Cold Comfort, Harare, Zimbabwe (Mobile Workshop Nationwide)',
             hours_weekdays='Mon - Fri: 8:00 AM - 5:00 PM',
             hours_saturday='Sat: 8:00 AM - 1:00 PM',
             hours_sunday='Sun: Closed',
-            map_latitude=-17.8485,
-            map_longitude=31.0605
+            map_latitude=-17.8228,
+            map_longitude=30.9856,
+            hero_tag='DEALER-LEVEL DIAGNOSTICS & HYBRID SPECIALISTS',
+            hero_title='Dealer-Level Diagnostics & High-Precision Auto Electrics',
+            hero_subtitle="Equipped with dealer-level diagnostic scanners & high-precision testing equipment. We specialize in Toyota hybrid high voltage battery servicing & cell replacement, Honda GP dual clutch replacements, and high-precision electrical repairs.",
+            status_diagnostics_queue='Active (Cold Comfort & Mobile Workshop)',
+            status_diagnostics_class='val-green',
+            status_location_text='Cold Comfort, Harare'
         )
 
         # 5. Create Services
         services_data = [
             {
-                'title': 'Computer Diagnostic Testing',
+                'title': 'Computer & Dealer-Level Diagnostic Testing',
                 'slug': 'diagnostics',
                 'icon_class': 'fas fa-laptop-code',
-                'description': 'Modern vehicles are computers on wheels. We perform factory-level ECU scans, sensor signal monitoring, wiring circuit analysis, and live telemetry tracking to identify exactly what is causing check-engine lights or mysterious electrical errors.',
+                'description': 'Equipped with dealer-level diagnostics scanners and high-precision testing equipment. We perform factory-level ECU scans, sensor signal monitoring, wiring circuit analysis, and live telemetry tracking to accurately resolve complex electrical issues.',
                 'bullet_points': (
+                    "fas fa-laptop-code | Dealer-Level Diagnostics Scanners & Scopes\n"
                     "fas fa-microchip | Full Fault Code Scan & Reset\n"
-                    "fas fa-tachometer-alt | Sensor Live Data Diagnostics\n"
-                    "fas fa-network-wired | CAN-Bus Network Troubleshooting\n"
-                    "fas fa-sliders-h | Adaptations & ECU Coding"
+                    "fas fa-tachometer-alt | Sensor Live Data & High-Precision Diagnostics\n"
+                    "fas fa-sliders-h | Adaptations & ECU Module Coding"
                 ),
                 'order': 1
             },
             {
-                'title': 'Electrical Repairs',
+                'title': 'Toyota Hybrid High Voltage (HV) Battery Servicing',
+                'slug': 'hybrid_battery',
+                'icon_class': 'fas fa-car-battery',
+                'description': 'Comprehensive battery diagnosis & replacement of all Toyota hybrid high voltage batteries (Prius, Aqua, Axio, Fielder, Camry, Harrier). We perform battery balancing & voltage analysis, and replace weak high voltage cells to restore peak battery efficiency.',
+                'bullet_points': (
+                    "fas fa-car-battery | Battery Diagnosis & Replacement of All Toyota Hybrids\n"
+                    "fas fa-balance-scale | Battery Balancing & Individual Voltage Analysis\n"
+                    "fas fa-tools | Individual Weak High Voltage Cell Replacement\n"
+                    "fas fa-bolt | Full High Voltage (HV) Pack Refurbishment & Swap"
+                ),
+                'order': 2
+            },
+            {
+                'title': 'Honda GP Dual Clutch Replacement & Servicing',
+                'slug': 'dual_clutch',
+                'icon_class': 'fas fa-cogs',
+                'description': "All Honda GP models (Fit GP1, GP4, GP5, Vezel, Grace, Shuttle, Freed, etc.) need good care. We do full service of the dual clutch, and when failed, we replace it with a brand new clutch & release bearing along with actuator fluid servicing & calibration.",
+                'bullet_points': (
+                    "fas fa-cog | Complete Dual Clutch Service & Maintenance\n"
+                    "fas fa-shield-alt | Brand New Clutch & Bearing Replacement\n"
+                    "fas fa-oil-can | Dual Clutch Actuator Fluid Service & Bleeding\n"
+                    "fas fa-sliders-h | Clutch Point Re-learning & Software Adaptations"
+                ),
+                'order': 3
+            },
+            {
+                'title': 'Electrical Repairs & Wiring Harnesses',
                 'slug': 'electrical_repairs',
                 'icon_class': 'fas fa-tools',
                 'description': 'From repairing frayed wire harnesses, splicing corroded connectors, and installing upgraded fuse boards, to resolving short circuits and fixing window regulators/door lock actuators. We repair electrical systems to factory standards.',
@@ -217,20 +255,7 @@ class Command(BaseCommand):
                     "fas fa-lock | Central Locking & Power Window Repair\n"
                     "fas fa-fan | AC Blower & Radiator Fan Electricals"
                 ),
-                'order': 2
-            },
-            {
-                'title': 'Battery Diagnostics & Replacement',
-                'slug': 'battery_replacement',
-                'icon_class': 'fas fa-car-battery',
-                'description': "A dead battery isn't always just a bad battery—it could be a parasitic draw or a weak alternator. We test your battery health and the alternator's charging voltage. If you need a replacement, we supply and register high-performance AGM or Maintenance-Free batteries.",
-                'bullet_points': (
-                    "fas fa-bolt | CCA Load Testing & Health Check\n"
-                    "fas fa-search-minus | Parasitic Current Leak Test\n"
-                    "fas fa-sync | AGM & Start-Stop Battery Setup\n"
-                    "fas fa-shield-alt | Battery Terminal Reconditioning"
-                ),
-                'order': 3
+                'order': 4
             },
             {
                 'title': 'Alternator & Starter Repairs',
@@ -243,7 +268,7 @@ class Command(BaseCommand):
                     "fas fa-signal | Voltage Regulator Replacements\n"
                     "fas fa-shield-virus | Heavy Duty Truck Starter Servicing"
                 ),
-                'order': 4
+                'order': 5
             },
             {
                 'title': 'General Auto-Electrical Troubleshooting',
@@ -256,7 +281,7 @@ class Command(BaseCommand):
                     "fas fa-bell-slash | Car Alarm & Immobilizer Troubleshooting\n"
                     "fas fa-trailer | Trailer Socket & Towbar Wiring"
                 ),
-                'order': 5
+                'order': 6
             }
         ]
 

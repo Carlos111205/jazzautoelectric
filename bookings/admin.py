@@ -32,6 +32,25 @@ class ContactInquiryAdmin(admin.ModelAdmin):
 @admin.register(CompanyProfile)
 class CompanyProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'email', 'hours_weekdays')
+    
+    fieldsets = (
+        ('Company Contact Details', {
+            'fields': ('name', 'slogan', 'phone', 'phone_raw', 'alt_phone', 'alt_phone_raw', 'whatsapp', 'whatsapp_url', 'email', 'address', 'map_latitude', 'map_longitude')
+        }),
+        ('Social Media Profiles', {
+            'fields': ('facebook_url', 'instagram_url', 'tiktok_url')
+        }),
+        ('Operating Hours', {
+            'fields': ('hours_weekdays', 'hours_saturday', 'hours_sunday')
+        }),
+        ('Homepage Hero Details', {
+            'fields': ('hero_tag', 'hero_title', 'hero_subtitle')
+        }),
+        ('Workshop Status Board', {
+            'fields': ('status_diagnostics_queue', 'status_diagnostics_class', 'status_location_text')
+        }),
+    )
+
     # Limit creation of company profiles so the owner doesn't create multiple config profiles
     def has_add_permission(self, request):
         return not CompanyProfile.objects.exists()

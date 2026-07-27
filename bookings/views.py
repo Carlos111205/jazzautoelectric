@@ -1,18 +1,20 @@
 from django.shortcuts import render, redirect
 from .forms import BookingForm, ContactForm
 from .models import Service, Testimonial
-from inventory.models import Part
+from inventory.models import Category, Part
 
 def home(request):
     # Fetch 4 items in stock for the spares preview section
     featured_parts = Part.objects.filter(is_available=True)[:4]
     services_list = Service.objects.all()[:3]
     testimonials_list = Testimonial.objects.filter(is_active=True)[:3]
+    categories_list = Category.objects.all()[:4]
     
     context = {
         'featured_parts': featured_parts,
         'services': services_list,
-        'testimonials': testimonials_list
+        'testimonials': testimonials_list,
+        'categories': categories_list
     }
     return render(request, 'home.html', context)
 

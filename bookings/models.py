@@ -2,9 +2,11 @@ from django.db import models
 
 class BookingRequest(models.Model):
     SERVICE_CHOICES = [
-        ('diagnostics', 'Diagnostic Testing'),
+        ('diagnostics', 'Dealer-Level Diagnostic Testing'),
+        ('hybrid_battery', 'Toyota Hybrid HV Battery Servicing'),
+        ('dual_clutch', 'Honda GP Dual Clutch Replacement'),
         ('electrical_repairs', 'Electrical Repairs'),
-        ('battery_replacement', 'Battery Replacement'),
+        ('battery_replacement', 'Standard Battery Replacement'),
         ('alternator_starter', 'Alternator/Starter Repairs'),
         ('troubleshooting', 'General Auto-Electrical Troubleshooting'),
         ('other', 'Other Service'),
@@ -26,7 +28,7 @@ class BookingRequest(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=20)
     vehicle_make = models.CharField(max_length=50, verbose_name="Vehicle Make (e.g. Toyota)")
-    vehicle_model = models.CharField(max_length=50, verbose_name="Vehicle Model (e.g. Hilux)")
+    vehicle_model = models.CharField(max_length=50, verbose_name="Vehicle Model (e.g. Fit GP5, Prius)")
     vehicle_year = models.IntegerField(verbose_name="Vehicle Year")
     service_type = models.CharField(max_length=50, default='diagnostics')
     preferred_date = models.DateField(verbose_name="Preferred Date")
@@ -69,18 +71,36 @@ class ContactInquiry(models.Model):
 
 
 class CompanyProfile(models.Model):
-    name = models.CharField(max_length=100, default='Jazz Auto Electric')
-    phone = models.CharField(max_length=30, default='+263 77 245 6789')
-    phone_raw = models.CharField(max_length=30, default='+263772456789', help_text="Digits only with country code, e.g. +263772456789")
-    whatsapp = models.CharField(max_length=30, default='+263 77 245 6789')
-    whatsapp_url = models.TextField(default='https://wa.me/263772456789?text=Hi%20Jazz%20Auto%20Electric,%20I%20would%20like%20to%20inquire%20about%20your%20services%20or%20motor%20spares.')
-    email = models.EmailField(default='info@jazzautoelectric.co.zw')
-    address = models.TextField(default='Plot 104, Cripps Road, Graniteside, Harare, Zimbabwe')
+    name = models.CharField(max_length=100, default='Jazz Auto Electrics')
+    slogan = models.CharField(max_length=200, default='Where Precision Meets Harmony')
+    phone = models.CharField(max_length=30, default='+263 71 294 8625')
+    phone_raw = models.CharField(max_length=30, default='+263712948625', help_text="Digits only with country code, e.g. +263712948625")
+    alt_phone = models.CharField(max_length=30, default='+263 77 425 5065')
+    alt_phone_raw = models.CharField(max_length=30, default='+263774255065')
+    whatsapp = models.CharField(max_length=30, default='+263 71 294 8625')
+    whatsapp_url = models.TextField(default='https://wa.me/263712948625?text=Hi%20Jazz%20Auto%20Electrics,%20I%20would%20like%20to%20inquire%20about%20your%20services%20or%20motor%20spares.')
+    email = models.EmailField(default='info@jazzautoelectrics.co.zw')
+    address = models.TextField(default='Cold Comfort, Harare, Zimbabwe (Mobile Workshop Nationwide)')
     hours_weekdays = models.CharField(max_length=100, default='Mon - Fri: 8:00 AM - 5:00 PM')
     hours_saturday = models.CharField(max_length=100, default='Sat: 8:00 AM - 1:00 PM')
     hours_sunday = models.CharField(max_length=100, default='Sun: Closed')
-    map_latitude = models.FloatField(default=-17.8485)
-    map_longitude = models.FloatField(default=31.0605)
+    map_latitude = models.FloatField(default=-17.8228)
+    map_longitude = models.FloatField(default=30.9856)
+
+    # Social Media Links
+    facebook_url = models.URLField(default='https://www.facebook.com/profile.php?id=100064758844406')
+    instagram_url = models.URLField(default='https://www.instagram.com/jazz_auto_electrics/')
+    tiktok_url = models.URLField(default='https://www.tiktok.com/@jazzauto_electrics')
+
+    # Hero section content
+    hero_tag = models.CharField(max_length=100, default='DEALER-LEVEL DIAGNOSTICS & HYBRID SPECIALISTS')
+    hero_title = models.CharField(max_length=200, default='Dealer-Level Diagnostics & High-Precision Auto Electrics')
+    hero_subtitle = models.TextField(default="Equipped with dealer-level diagnostic scanners & high-precision testing equipment. Toyota Hybrid HV battery diagnosis, balancing & cell replacement, Honda GP Dual Clutch replacement & servicing.")
+
+    # Live Status Board content
+    status_diagnostics_queue = models.CharField(max_length=100, default='Active (Cold Comfort & Mobile Workshop)')
+    status_diagnostics_class = models.CharField(max_length=50, default='val-green', help_text="CSS class for styling: val-green (green), val-orange (yellow/orange), val-red (red)")
+    status_location_text = models.CharField(max_length=100, default='Cold Comfort, Harare')
 
     class Meta:
         verbose_name = "Company Profile"
