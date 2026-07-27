@@ -49,6 +49,12 @@
                 <a href="{% url 'bookings:services' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:services' %}active{% endif %}">Services</a>
                 <a href="{% url 'inventory:shop' %}" class="nav-link {% if request.resolver_match.view_name == 'inventory:shop' %}active{% endif %}">Motor Spares</a>
                 <a href="{% url 'bookings:contact' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:contact' %}active{% endif %}">Contact</a>
+                {% if request.user.is_authenticated and request.user.is_staff %}
+                    <a href="/admin/" class="nav-link" style="color: #f5b016; font-weight: 600;"><i class="fas fa-user-shield"></i> Owner Portal</a>
+                    <a href="{% url 'bookings:owner_logout' %}" class="nav-link" style="color: #fca5a5;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                {% else %}
+                    <a href="{% url 'bookings:owner_login' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:owner_login' %}active{% endif %}"><i class="fas fa-lock"></i> Jazz Login</a>
+                {% endif %}
                 <a href="{% url 'bookings:services' %}#booking-section" class="nav-btn-cta">Book Service</a>
             </nav>
         </div>
@@ -90,7 +96,8 @@
                     <li><a href="{% url 'inventory:shop' %}">Motor Spares Shop</a></li>
                     <li><a href="{% url 'bookings:contact' %}">Contact Us</a></li>
                     <li><a href="{% url 'bookings:services' %}#booking-section">Schedule Repair</a></li>
-                    <li><a href="/admin/" target="_blank"><i class="fas fa-lock"></i> Owner Portal (Manage Stock)</a></li>
+                    <li><a href="{% url 'bookings:owner_login' %}"><i class="fas fa-lock"></i> Jazz Login</a></li>
+                    <li><a href="{% url 'bookings:owner_register' %}"><i class="fas fa-user-plus"></i> Register Owner Account</a></li>
                 </ul>
             </div>
             

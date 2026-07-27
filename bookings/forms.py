@@ -68,3 +68,26 @@ class ContactForm(forms.ModelForm):
             field.widget.attrs['placeholder'] = f"Enter your {field_name.replace('_', ' ')}"
             if field_name == 'message':
                 field.widget.attrs['placeholder'] = "Write your message here..."
+
+
+class OwnerRegisterForm(forms.Form):
+    username = forms.CharField(max_length=150, label="Owner Username", widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'e.g. jazz_owner'}))
+    first_name = forms.CharField(max_length=100, label="First Name", widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'e.g. Carlos'}))
+    last_name = forms.CharField(max_length=100, label="Last Name", widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'e.g. Moyo'}))
+    email = forms.EmailField(label="Email Address", widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'owner@jazzautoelectrics.co.zw'}))
+    password = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Enter strong password'}))
+    confirm_password = forms.CharField(label="Confirm Password", widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Re-enter password'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+        p1 = cleaned_data.get("password")
+        p2 = cleaned_data.get("confirm_password")
+        if p1 and p2 and p1 != p2:
+            raise forms.ValidationError("Passwords do not match. Please re-enter passwords.")
+        return cleaned_data
+
+
+class OwnerLoginForm(forms.Form):
+    username = forms.CharField(label="Username or Email", widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter your username'}))
+    password = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Enter your password'}))
+

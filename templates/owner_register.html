@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Owner Account Registration | Jazz Auto Electrics{% endblock %}
+
+{% block content %}
+<section class="auth-section" style="padding: 60px 20px; min-height: 85vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(15, 23, 42, 0.92), rgba(10, 15, 29, 0.98)), url('{% static 'images/car_honda_vezel_modulo.jpg' %}') center/cover no-repeat;">
+    <div class="auth-card" style="width: 100%; max-width: 520px; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(245, 176, 22, 0.35); border-radius: 20px; padding: 40px 30px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);">
+        
+        <div class="auth-header" style="text-align: center; margin-bottom: 25px;">
+            <img src="{% static 'images/logo.png' %}" alt="Jazz Auto Electrics" style="height: 60px; margin-bottom: 12px;">
+            <h2 style="font-size: 1.7rem; color: #f8fafc; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; margin: 0 0 5px 0;">OWNER REGISTRATION</h2>
+            <p style="color: #94a3b8; font-size: 0.88rem; margin: 0;">Register your details to create an Owner Control Panel Account</p>
+        </div>
+
+        {% if error_msg %}
+            <div class="alert-error" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 12px 15px; border-radius: 10px; font-size: 0.88rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-exclamation-circle" style="color: #ef4444; font-size: 1.1rem;"></i>
+                <span>{{ error_msg }}</span>
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'bookings:owner_register' %}" class="auth-form">
+            {% csrf_token %}
+
+            <div class="form-row" style="display: flex; gap: 15px; margin-bottom: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="{{ form.first_name.id_for_label }}" style="display: block; color: #cbd5e1; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px;">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="{{ form.last_name.id_for_label }}" style="display: block; color: #cbd5e1; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px;">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="{{ form.username.id_for_label }}" style="display: block; color: #cbd5e1; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px;">Choose Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="{{ form.email.id_for_label }}" style="display: block; color: #cbd5e1; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px;">Email Address</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="{{ form.password.id_for_label }}" style="display: block; color: #cbd5e1; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px;">Password</label>
+                {{ form.password }}
+            </div>
+
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label for="{{ form.confirm_password.id_for_label }}" style="display: block; color: #cbd5e1; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px;">Confirm Password</label>
+                {{ form.confirm_password }}
+            </div>
+
+            <button type="submit" class="btn-primary btn-block" style="width: 100%; padding: 14px; font-size: 1rem; font-weight: 700; background: linear-gradient(135deg, #f5b016, #d97706); color: #0f172a; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s ease;">
+                <i class="fas fa-user-plus"></i> Register Owner Account
+            </button>
+        </form>
+
+        <div class="auth-footer" style="text-align: center; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.88rem; color: #94a3b8;">
+            <p style="margin-bottom: 6px;">Already registered?</p>
+            <a href="{% url 'bookings:owner_login' %}" style="color: #f5b016; font-weight: 600; text-decoration: none;"><i class="fas fa-sign-in-alt"></i> Go to Jazz Login</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,6 +1,11 @@
 from django.contrib import admin
 from .models import BookingRequest, ContactInquiry, CompanyProfile, Service, Testimonial
 
+# Customize Admin Site Branding ("Jazz Login")
+admin.site.site_header = "Jazz Auto Electrics - Owner Portal"
+admin.site.site_title = "Jazz Login"
+admin.site.index_title = "Welcome to Jazz Auto Electrics Control Panel"
+
 @admin.register(BookingRequest)
 class BookingRequestAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'vehicle_make', 'vehicle_model', 'service_type', 'preferred_date', 'preferred_time', 'status', 'created_at')
