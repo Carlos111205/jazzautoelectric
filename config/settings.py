@@ -76,14 +76,48 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+import os
+import shutil
 import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
-    )
-}
+if 'DATABASE_URL' in os.environ and os.environ['DATABASE_URL'].strip():
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600
+        )
+    }
+else:
+    # Handle SQLite in Vercel Serverless environment where /var/task is read-only
+    if os.environ.get('VERCEL') or os.path.exists('/var/task'):
+        tmp_db = '/tmp/db.sqlite3'
+        orig_db = BASE_DIR / 'db.sqlite3'
+        if not os.path.exists(tmp_db):
+            if os.path.exists(orig_db):
+                try:
+                    shutil.copy2(orig_db, tmp_db)
+                except Exception:
+                    open(tmp_db, 'a').close()
+            else:
+                open(tmp_db, 'a').close()
+        try:
+            os.chmod(tmp_db, 0o666)
+        except Exception:
+            pass
+
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': tmp_db,
+            }
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+
 
 
 # Password validation
