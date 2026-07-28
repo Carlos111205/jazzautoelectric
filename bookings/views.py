@@ -1,10 +1,20 @@
+import urllib.parse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import BookingForm, ContactForm, OwnerRegisterForm, OwnerLoginForm
-from .models import Service, Testimonial
+from .forms import BookingForm, ContactForm, OwnerLoginForm
+from .models import Service, Testimonial, CompanyProfile
 from inventory.models import Category, Part
+
+def get_whatsapp_phone():
+    profile = CompanyProfile.objects.first()
+    if profile and profile.whatsapp:
+        # Extract digits only
+        phone_digits = ''.join(c for c in profile.whatsapp if c.isdigit())
+        if phone_digits:
+            return phone_digits
+    return "263712948625"
 
 def home(request):
     # Fetch 4 items in stock for the spares preview section
@@ -28,10 +38,25 @@ def services(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save()
-            return render(request, 'booking_success.html', {
-                'type': 'booking',
-                'booking': booking
-            })
+            
+            # Direct WhatsApp message formatting for instant communication
+            msg = (
+                f"Hi Jazz Auto Electrics, I would like to book a repair service:\n\n"
+                f"👤 *Name:* {booking.name}\n"
+                f"📞 *Phone:* {booking.phone}\n"
+                f"✉️ *Email:* {booking.email}\n"
+                f"🚗 *Vehicle:* {booking.vehicle_make} {booking.vehicle_model} ({booking.vehicle_year})\n"
+                f"🔧 *Service Requested:* {booking.get_service_type_display()}\n"
+                f"📅 *Preferred Date:* {booking.preferred_date} ({booking.get_preferred_time_display()})\n"
+            )
+            if booking.message:
+                msg += f"📝 *Symptoms/Details:*\n{booking.message}\n"
+
+            phone = get_whatsapp_phone()
+            encoded_msg = urllib.parse.quote(msg)
+            whatsapp_url = f"https://wa.me/{phone}?text={encoded_msg}"
+
+            return redirect(whatsapp_url)
     else:
         # Allow pre-selecting a service type via query parameters (e.g. from service cards)
         initial_service = request.GET.get('service', 'diagnostics')
@@ -47,52 +72,35 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             inquiry = form.save()
-            return render(request, 'booking_success.html', {
-                'type': 'contact',
-                'inquiry': inquiry
-            })
+            
+            # Direct WhatsApp message formatting for contact inquiries
+            msg = (
+                f"Hi Jazz Auto Electrics, I have an inquiry:\n\n"
+                f"👤 *Name:* {inquiry.name}\n"
+                f"✉️ *Email:* {inquiry.email}\n"
+            )
+            if inquiry.phone:
+                msg += f"📞 *Phone:* {inquiry.phone}\n"
+            msg += f"📌 *Subject:* {inquiry.subject}\n"
+            msg += f"💬 *Message:*\n{inquiry.message}\n"
+
+            phone = get_whatsapp_phone()
+            encoded_msg = urllib.parse.quote(msg)
+            whatsapp_url = f"https://wa.me/{phone}?text={encoded_msg}"
+
+            return redirect(whatsapp_url)
     else:
         form = ContactForm()
         
     return render(request, 'contact.html', {'form': form})
 
 def owner_register(request):
-    if request.user.is_authenticated and request.user.is_staff:
-        return redirect('/admin/')
+    # Registration is strictly restricted to authenticated superusers/admins only
+    if not (request.user.is_authenticated and request.user.is_superuser):
+        messages.error(request, "Access Denied: Only the main Admin can add or grant permissions to new users.")
+        return redirect('/admin/auth/user/add/' if request.user.is_authenticated else 'bookings:owner_login')
 
-    error_msg = None
-    if request.method == 'POST':
-        form = OwnerRegisterForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-
-            if User.objects.filter(username=username).exists():
-                error_msg = f"Username '{username}' is already taken. Please choose another."
-            elif User.objects.filter(email=email).exists():
-                error_msg = f"Email '{email}' is already registered. Please log in or use a different email."
-            else:
-                user = User.objects.create_superuser(
-                    username=username,
-                    email=email,
-                    password=password,
-                    first_name=first_name,
-                    last_name=last_name
-                )
-                user.save()
-                login(request, user)
-                messages.success(request, f"Welcome {first_name}! Owner account created successfully.")
-                return redirect('/admin/')
-    else:
-        form = OwnerRegisterForm()
-
-    return render(request, 'owner_register.html', {
-        'form': form,
-        'error_msg': error_msg
-    })
+    return redirect('/admin/auth/user/add/')
 
 def owner_login(request):
     if request.user.is_authenticated and request.user.is_staff:
@@ -113,8 +121,11 @@ def owner_login(request):
 
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                return redirect('/admin/')
+                if user.is_staff or user.is_superuser:
+                    login(request, user)
+                    return redirect('/admin/')
+                else:
+                    error_msg = "Access Restricted: Only authorized admin accounts can enter the Jazz Control Panel."
             else:
                 error_msg = "Invalid username/email or password. Please try again."
     else:
@@ -129,4 +140,5 @@ def owner_logout(request):
     logout(request)
     messages.info(request, "You have been logged out successfully.")
     return redirect('bookings:home')
+
 
