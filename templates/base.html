@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Jazz Auto Electrics | Auto-Electrical Experts & Spares{% endblock %}</title>
-    
+
     <!-- Meta tags for SEO -->
-    <meta name="description" content="{% block meta_description %}Jazz Auto Electrics in Harare, Zimbabwe specializes in professional auto-electrical repairs, diagnostics, alternator/starter repairs, battery replacement, and premium motor spares retail.{% endblock %}">
-    <meta name="keywords" content="auto electric, car diagnostics, alternator repair, starter repair, motor spares harare, car battery zimbabwe, jazz auto electric">
+    <meta name="description"
+        content="{% block meta_description %}Jazz Auto Electrics in Harare, Zimbabwe specializes in professional auto-electrical repairs, diagnostics, alternator/starter repairs, battery replacement, and premium motor spares retail.{% endblock %}">
+    <meta name="keywords"
+        content="auto electric, car diagnostics, alternator repair, starter repair, motor spares harare, car battery zimbabwe, jazz auto electric">
     <meta name="author" content="Jazz Auto Electrics">
-    
+
     <!-- Google Fonts: Inter & Orbitron (for technical accents) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;600;700;900&display=swap"
+        rel="stylesheet">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Leaflet Map CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
     <!-- Custom CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=1.1">
-    
+
     {% block extra_head %}{% endblock %}
 </head>
+
 <body>
-    
+
     <!-- Header/Navigation -->
     <header class="navbar-header" id="navbar">
         <div class="nav-container">
@@ -39,21 +46,30 @@
                     <span class="logo-slogan">{{ BUSINESS_SLOGAN }}</span>
                 </div>
             </a>
-            
+
             <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
                 <i class="fas fa-bars"></i>
             </button>
-            
+
             <nav class="nav-menu" id="nav-links">
-                <a href="{% url 'bookings:home' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:home' %}active{% endif %}">Home</a>
-                <a href="{% url 'bookings:services' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:services' %}active{% endif %}">Services</a>
-                <a href="{% url 'inventory:shop' %}" class="nav-link {% if request.resolver_match.view_name == 'inventory:shop' %}active{% endif %}">Motor Spares</a>
-                <a href="{% url 'bookings:contact' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:contact' %}active{% endif %}">Contact</a>
+                <a href="{% url 'bookings:home' %}"
+                    class="nav-link {% if request.resolver_match.view_name == 'bookings:home' %}active{% endif %}">Home</a>
+                <a href="{% url 'bookings:services' %}"
+                    class="nav-link {% if request.resolver_match.view_name == 'bookings:services' %}active{% endif %}">Services</a>
+                <a href="{% url 'inventory:shop' %}"
+                    class="nav-link {% if request.resolver_match.view_name == 'inventory:shop' %}active{% endif %}">Motor
+                    Spares</a>
+                <a href="{% url 'bookings:contact' %}"
+                    class="nav-link {% if request.resolver_match.view_name == 'bookings:contact' %}active{% endif %}">Contact</a>
                 {% if request.user.is_authenticated and request.user.is_staff %}
-                    <a href="/admin/" class="nav-link" style="color: #f5b016; font-weight: 600;"><i class="fas fa-user-shield"></i> Owner Portal</a>
-                    <a href="{% url 'bookings:owner_logout' %}" class="nav-link" style="color: #fca5a5;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="/admin/" class="nav-link" style="color: #f5b016; font-weight: 600;"><i
+                        class="fas fa-user-shield"></i> Owner Portal</a>
+                <a href="{% url 'bookings:owner_logout' %}" class="nav-link" style="color: #fca5a5;"><i
+                        class="fas fa-sign-out-alt"></i> Logout</a>
                 {% else %}
-                    <a href="{% url 'bookings:owner_login' %}" class="nav-link {% if request.resolver_match.view_name == 'bookings:owner_login' %}active{% endif %}"><i class="fas fa-lock"></i> Jazz Login</a>
+                <a href="{% url 'bookings:owner_login' %}"
+                    class="nav-link {% if request.resolver_match.view_name == 'bookings:owner_login' %}active{% endif %}"><i
+                        class="fas fa-lock"></i> Jazz Login</a>
                 {% endif %}
                 <a href="{% url 'bookings:services' %}#booking-section" class="nav-btn-cta">Book Service</a>
             </nav>
@@ -71,23 +87,29 @@
         <div class="footer-container">
             <div class="footer-col brand-col">
                 <a href="{% url 'bookings:home' %}" class="logo footer-logo">
-                    <img src="{% static 'images/logo.png' %}" alt="Jazz Auto Electrics Logo" class="brand-logo-img footer-logo-img">
+                    <img src="{% static 'images/logo.png' %}" alt="Jazz Auto Electrics Logo"
+                        class="brand-logo-img footer-logo-img">
                     <div class="logo-text-wrapper">
                         <span>JAZZ <span class="logo-highlight">AUTO ELECTRICS</span></span>
                         <span class="logo-slogan">{{ BUSINESS_SLOGAN }}</span>
                     </div>
                 </a>
                 <p class="footer-description">
-                    Hybrids & Non-Hybrids Specialists. Hybrid Mobile Workshop traveling all around Zimbabwe for diagnostics, electrical repairs, battery servicing, and quality spares.
+                    Hybrids & Non-Hybrids Specialists. Hybrid Mobile Workshop traveling all around Zimbabwe for
+                    diagnostics, electrical repairs, battery servicing, and quality spares.
                 </p>
                 <div class="footer-socials">
-                    <a href="{{ BUSINESS_FACEBOOK_URL }}" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="{{ BUSINESS_INSTAGRAM_URL }}" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="{{ BUSINESS_TIKTOK_URL }}" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="{{ BUSINESS_FACEBOOK_URL }}" target="_blank" aria-label="Facebook"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="{{ BUSINESS_INSTAGRAM_URL }}" target="_blank" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="{{ BUSINESS_TIKTOK_URL }}" target="_blank" aria-label="TikTok"><i
+                            class="fab fa-tiktok"></i></a>
+                    <a href="{{ BUSINESS_WHATSAPP_URL }}" target="_blank" aria-label="WhatsApp"><i
+                            class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            
+
             <div class="footer-col links-col">
                 <h4 class="footer-title">Quick Links</h4>
                 <ul class="footer-links">
@@ -99,7 +121,7 @@
                     <li><a href="{% url 'bookings:owner_login' %}"><i class="fas fa-lock"></i> Jazz Login</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-col contact-col">
                 <h4 class="footer-title">Contact Details</h4>
                 <ul class="footer-contact-info">
@@ -120,17 +142,18 @@
                     </li>
                 </ul>
             </div>
-            
+
             <div class="footer-col hours-col">
                 <h4 class="footer-title">Operating Hours</h4>
                 <ul class="footer-hours">
                     <li><span class="day">Monday - Friday:</span> <span class="time">8:00 AM - 5:00 PM</span></li>
                     <li><span class="day">Saturday:</span> <span class="time">8:00 AM - 1:00 PM</span></li>
-                    <li><span class="day">Sunday & Holidays:</span> <span class="time highlight-closed">Closed</span></li>
+                    <li><span class="day">Sunday & Holidays:</span> <span class="time highlight-closed">Closed</span>
+                    </li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; {% now "Y" %} Jazz Auto Electrics. All Rights Reserved. Designed with precision.</p>
         </div>
@@ -157,11 +180,13 @@
     </script>
 
     <!-- Leaflet JS Map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
-    
+
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>
