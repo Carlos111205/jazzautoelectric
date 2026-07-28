@@ -43,7 +43,7 @@ def business_info(request):
         'BUSINESS_FACEBOOK_URL': 'https://www.facebook.com/profile.php?id=100064758844406',
         'BUSINESS_INSTAGRAM_URL': 'https://www.instagram.com/jazz_auto_electrics/',
         'BUSINESS_TIKTOK_URL': 'https://www.tiktok.com/@jazzauto_electrics',
-        'BUSINESS_EMAIL': 'info@jazzautoelectrics.co.zw',
+        'BUSINESS_EMAIL': 'imionjali5@gmail.com',
         'BUSINESS_ADDRESS': 'Cold Comfort, Harare, Zimbabwe (Mobile Workshop Nationwide)',
         'BUSINESS_HOURS_WEEKDAYS': 'Mon - Fri: 8:00 AM - 5:00 PM',
         'BUSINESS_HOURS_SATURDAY': 'Sat: 8:00 AM - 1:00 PM',

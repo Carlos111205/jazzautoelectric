@@ -79,7 +79,7 @@ class CompanyProfile(models.Model):
     alt_phone_raw = models.CharField(max_length=30, default='+263774255065')
     whatsapp = models.CharField(max_length=30, default='+263 71 294 8625')
     whatsapp_url = models.TextField(default='https://wa.me/263712948625?text=Hi%20Jazz%20Auto%20Electrics,%20I%20would%20like%20to%20inquire%20about%20your%20services%20or%20motor%20spares.')
-    email = models.EmailField(default='info@jazzautoelectrics.co.zw')
+    email = models.EmailField(default='imionjali5@gmail.com')
     address = models.TextField(default='Cold Comfort, Harare, Zimbabwe (Mobile Workshop Nationwide)')
     hours_weekdays = models.CharField(max_length=100, default='Mon - Fri: 8:00 AM - 5:00 PM')
     hours_saturday = models.CharField(max_length=100, default='Sat: 8:00 AM - 1:00 PM')

@@ -81,7 +81,7 @@ class Command(BaseCommand):
             facebook_url='https://www.facebook.com/profile.php?id=100064758844406',
             instagram_url='https://www.instagram.com/jazz_auto_electrics/',
             tiktok_url='https://www.tiktok.com/@jazzauto_electrics',
-            email='info@jazzautoelectrics.co.zw',
+            email='imionjali5@gmail.com',
             address='Cold Comfort, Harare, Zimbabwe (Mobile Workshop Nationwide)',
             hours_weekdays='Mon - Fri: 8:00 AM - 5:00 PM',
             hours_saturday='Sat: 8:00 AM - 1:00 PM',
